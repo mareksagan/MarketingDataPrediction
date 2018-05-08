@@ -1,21 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MarketingDataPrediction.DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SharpLearning;
+using SharpLearning.InputOutput.Serialization;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class UzytkownikController : Controller
     {
-        // GET api/values
+        MarketingDataPredictionDbContext _db;
+
+        public UzytkownikController()
+        {
+            _db = new MarketingDataPredictionDbContext();
+        }
+
+        // GET api/Uzytkownik
         [HttpGet]
         public JsonResult Get()
         {
-            String Js = "value1";
+            var response = _db.Klient.Where(k => k.Wiek == 56).ToList();
 
-            return Json(Js);
+            var dataTable = new DataTable();
+
+            return Json(response);
         }
 
         // GET api/values/5

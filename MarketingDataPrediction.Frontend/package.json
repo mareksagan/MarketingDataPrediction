@@ -35,7 +35,6 @@
     "@types/reactstrap": "^5.0.23",
     "material-ui": "^0.20.0",
     "popper.js": "^1.12.9",
-    "react-bootstrap": "^0.32.1",
     "reactstrap": "^6.0.1"
   }
 }

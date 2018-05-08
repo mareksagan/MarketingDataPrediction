@@ -30,8 +30,6 @@ export class LogowanieAdmina extends React.Component<RouteComponentProps<{}>, {}
                 </div>;
     }
 }
-//usunąć inne paczki npm, niż reactstrap
+
 //porobić widoki
 //napisać kontrolery
-//przywrócić reactstrap do wersji 5.0.0
-//enums
