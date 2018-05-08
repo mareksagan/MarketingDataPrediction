@@ -1,0 +1,93 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <StartupObject>MarketingDataPrediction.Program</StartupObject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Content Remove="ClientApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ClientApp\components\Admin\HomeAdmina.tsx" />
+    <None Remove="ClientApp\components\Admin\RejestracjaAdmina.tsx" />
+    <None Remove="ClientApp\components\Admin\WylogowanieAdmina.tsx" />
+    <None Remove="ClientApp\components\Admin\WyswietlStatystykiSystemu.tsx" />
+    <None Remove="ClientApp\components\Admin\ZarzadzajUzytkownikiem.tsx" />
+    <None Remove="ClientApp\components\Admin\ZmienParametry.tsx" />
+    <None Remove="ClientApp\components\DodajAdmin.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\EksportWynikow.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\HomeUzytkownika.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\LogowanieUzytkownika.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\RejestracjaUzytkownika.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\UczenieMaszynowe.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\WyswietlStatystyki.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\WyswietlWyniki.tsx" />
+    <None Remove="ClientApp\components\Wyloguj.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzajAdminem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzajUzytkownikiem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\HomeAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\LogowanieAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\RejestracjaAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\WylogowanieAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\WyswietlStatystykiSystemu.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZmienParametry.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EdytujProfilUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EksportWynikow.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\HomeUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\LogowanieUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\RejestracjaUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\UczenieMaszynowe.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WylogujUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WyswietlStatystyki.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WyswietlWyniki.tsx" />
+  </ItemGroup>
+
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+
+    <!-- In development, the dist files won't exist on the first run or when cloning to
+         a different machine, so rebuild them if not already present. -->
+    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec Command="npm install" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**; ClientApp\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>
