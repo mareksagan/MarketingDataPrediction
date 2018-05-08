@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using MarketingDataPrediction.DataLayer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SharpLearning;
-using SharpLearning.InputOutput.Serialization;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
