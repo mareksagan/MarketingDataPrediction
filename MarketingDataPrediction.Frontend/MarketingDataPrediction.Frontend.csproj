@@ -24,38 +24,38 @@
 
   <ItemGroup>
     <None Remove="ClientApp\components\Admin\HomeAdmina.tsx" />
-    <None Remove="ClientApp\components\Admin\RejestracjaAdmina.tsx" />
-    <None Remove="ClientApp\components\Admin\WylogowanieAdmina.tsx" />
+    <None Remove="ClientApp\components\Admin\WylogujAdmina.tsx" />
     <None Remove="ClientApp\components\Admin\WyswietlStatystykiSystemu.tsx" />
-    <None Remove="ClientApp\components\Admin\ZarzadzanieUzytkownikiem.tsx" />
+    <None Remove="ClientApp\components\Admin\ZarejestrujAdmina.tsx" />
+    <None Remove="ClientApp\components\Admin\ZarzadzajUzytkownikiem.tsx" />
     <None Remove="ClientApp\components\Admin\ZmienParametry.tsx" />
     <None Remove="ClientApp\components\DodajAdmin.tsx" />
-    <None Remove="ClientApp\components\Uzytkownik\EksportWynikow.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\EksportujWyniki.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\HomeUzytkownika.tsx" />
-    <None Remove="ClientApp\components\Uzytkownik\LogowanieUzytkownika.tsx" />
-    <None Remove="ClientApp\components\Uzytkownik\RejestracjaUzytkownika.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\UczenieMaszynowe.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\WyswietlStatystyki.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\WyswietlWyniki.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\ZalogujUzytkownika.tsx" />
+    <None Remove="ClientApp\components\Uzytkownik\ZarejestrujUzytkownika.tsx" />
     <None Remove="ClientApp\components\Wyloguj.tsx" />
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzanieAdminem.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzanieUzytkownikiem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzajAdminem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzajUzytkownikiem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\HomeAdmina.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Admin\LogowanieAdmina.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Admin\RejestracjaAdmina.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Admin\WylogowanieAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZalogujAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarejestrujAdmina.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\WylogujAdmina.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\WyswietlStatystykiSystemu.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\ZmienParametry.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EdytujProfilUzytkownika.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EksportWynikow.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EdytujProfiUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EksportujWyniki.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\HomeUzytkownika.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\LogowanieUzytkownika.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\RejestracjaUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\ZalogujUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\ZarejestrujUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\UczenieMaszynowe.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WylogowanieUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WylogujUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WyswietlStatystyki.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WyswietlWyniki.tsx" />
   </ItemGroup>

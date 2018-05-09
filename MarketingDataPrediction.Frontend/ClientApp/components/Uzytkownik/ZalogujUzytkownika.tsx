@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { RouteComponentProps } from 'react-router';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 
-export class LogowanieUzytkownika extends React.Component<RouteComponentProps<{}>, {}> {
+export class ZalogujUzytkownika extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
 

@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { RouteComponentProps } from 'react-router';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 
-export class RejestracjaAdmina extends React.Component<RouteComponentProps<{}>, {}> {
+export class EdycjaProfiluUzytkownika extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
 
@@ -37,6 +37,12 @@ export class RejestracjaAdmina extends React.Component<RouteComponentProps<{}>, 
                     <Input />
                     {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
                     <FormText>Podaj swoje nazwisko</FormText>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="nrTelefonu">Numer telefonu</Label>
+                    <Input />
+                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
+                    <FormText>Podaj swój numer telefonu</FormText>
                 </FormGroup>
                 <Button>Zarejestruj się</Button>
             </Form>
