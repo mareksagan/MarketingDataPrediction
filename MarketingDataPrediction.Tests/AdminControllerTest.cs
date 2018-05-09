@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MarketingDataPrediction.LogicLayer;
+using NSubstitute;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -16,7 +18,9 @@ namespace MarketingDataPrediction.Tests
         [Fact]
         public void FailingTest()
         {
-            Assert.Equal(5, Add(2, 2));
+            var someClass = Substitute.For<RandomForest>("hello world");
+
+            Assert.Equal("hello world", someClass.returnValue());
         }
 
         int Add(int x, int y)

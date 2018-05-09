@@ -1,7 +1,7 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { RouteComponentProps } from 'react-router';
-import { Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 
 export class LogowanieAdmina extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
@@ -9,27 +9,20 @@ export class LogowanieAdmina extends React.Component<RouteComponentProps<{}>, {}
 
             <Form>
                 <FormGroup>
-                    <Label for="exampleEmail">Input without validation</Label>
+                    <Label for="email">Email</Label>
                     <Input />
-                    <FormFeedback>You will not be able to see this</FormFeedback>
-                    <FormText>Example help text that remains unchanged.</FormText>
+                    {/*<FormFeedback>Email jest dostępny</FormFeedback>*/}
+                    <FormText>Wprowadź email, który będzie służył jako nazwa użytkownika</FormText>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="exampleEmail">Valid input</Label>
-                    <Input valid />
-                    <FormFeedback valid>Sweet! that name is available</FormFeedback>
-                    <FormText>Example help text that remains unchanged.</FormText>
+                    <Label for="haslo">Hasło</Label>
+                    <Input />
+                    {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
+                    <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
-                <FormGroup>
-                    <Label for="examplePassword">Invalid input</Label>
-                    <Input invalid />
-                    <FormFeedback>Oh noes! that name is already taken</FormFeedback>
-                    <FormText>Example help text that remains unchanged.</FormText>
-                </FormGroup>
-                </Form>
-                </div>;
+                <Button>Zaloguj</Button>
+            </Form>
+
+        </div>;
     }
 }
-
-//porobić widoki
-//napisać kontrolery

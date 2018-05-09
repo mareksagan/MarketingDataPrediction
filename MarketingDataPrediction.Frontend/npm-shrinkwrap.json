@@ -55,9 +55,9 @@
       }
     },
     "@types/reactstrap": {
-      "version": "5.0.23",
-      "resolved": "https://registry.npmjs.org/@types/reactstrap/-/reactstrap-5.0.23.tgz",
-      "integrity": "sha512-u42ffP8nIpn6g7/jvfciGic8zSc2yQmI8XkOAo4iQ6B6m8lu0YbwbNln2gcyFIyltXeeEdo7JPqmrmE6ul6M+A==",
+      "version": "5.0.25",
+      "resolved": "https://registry.npmjs.org/@types/reactstrap/-/reactstrap-5.0.25.tgz",
+      "integrity": "sha512-EGDmCmnxu30/4ZIo8YcThE2Sr0gTYAtXL5RRWx8AMg9gfxxTfJvNGsHzHf1O/qxhZVTzqT45UcdMa/z4kQ/xhw==",
       "requires": {
         "@types/react": "15.0.35"
       }

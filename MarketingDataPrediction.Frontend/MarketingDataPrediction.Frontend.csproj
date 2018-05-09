@@ -27,7 +27,7 @@
     <None Remove="ClientApp\components\Admin\RejestracjaAdmina.tsx" />
     <None Remove="ClientApp\components\Admin\WylogowanieAdmina.tsx" />
     <None Remove="ClientApp\components\Admin\WyswietlStatystykiSystemu.tsx" />
-    <None Remove="ClientApp\components\Admin\ZarzadzajUzytkownikiem.tsx" />
+    <None Remove="ClientApp\components\Admin\ZarzadzanieUzytkownikiem.tsx" />
     <None Remove="ClientApp\components\Admin\ZmienParametry.tsx" />
     <None Remove="ClientApp\components\DodajAdmin.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\EksportWynikow.tsx" />
@@ -41,8 +41,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzajAdminem.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzajUzytkownikiem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzanieAdminem.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Admin\ZarzadzanieUzytkownikiem.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\HomeAdmina.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\LogowanieAdmina.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\RejestracjaAdmina.tsx" />
@@ -55,9 +55,13 @@
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\LogowanieUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\RejestracjaUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\UczenieMaszynowe.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WylogujUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WylogowanieUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WyswietlStatystyki.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\WyswietlWyniki.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\components\NewFolder\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

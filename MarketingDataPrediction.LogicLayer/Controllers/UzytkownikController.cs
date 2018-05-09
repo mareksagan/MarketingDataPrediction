@@ -26,6 +26,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             var response = _db.Klient.Where(k => k.Wiek == 56).ToList();
 
             var dataTable = new DataTable();
+            // DataTables from db and decision trees example
 
             return Json(response);
         }
