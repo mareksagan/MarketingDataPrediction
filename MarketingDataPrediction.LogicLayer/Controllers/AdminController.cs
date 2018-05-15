@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Admin")]
+    [Route("[controller]")]
     public class AdminController : Controller
     {
     }

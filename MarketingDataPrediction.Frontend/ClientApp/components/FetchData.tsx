@@ -1,28 +1,28 @@
-import * as React from 'react';
+﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import 'isomorphic-fetch';
 
 interface FetchDataExampleState {
-    forecasts: WeatherForecast[];
+    klienci: KlientWynik[];
     loading: boolean;
 }
 
 export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDataExampleState> {
     constructor() {
         super();
-        this.state = { forecasts: [], loading: true };
+        this.state = { klienci: [], loading: true };
 
-        fetch('api/Values')
-            .then(response => response.json() as Promise<WeatherForecast[]>)
+        fetch('http://localhost:52025/Uzytkownik/Get')
+            .then(response => response.json() as Promise<KlientWynik[]>)
             .then(data => {
-                this.setState({ forecasts: data, loading: false });
+                this.setState({ klienci: data, loading: false });
             });
     }
 
     public render() {
         let contents = this.state.loading
             ? <p><em>Loading...</em></p>
-            : FetchData.renderForecastsTable(this.state.forecasts);
+            : FetchData.renderForecastsTable(this.state.klienci);
 
         return <div>
             <h1>Weather forecast</h1>
@@ -31,23 +31,25 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
         </div>;
     }
 
-    private static renderForecastsTable(forecasts: WeatherForecast[]) {
+    private static renderForecastsTable(klienci: KlientWynik[]) {
         return <table className='table'>
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Temp. (C)</th>
-                    <th>Temp. (F)</th>
-                    <th>Summary</th>
+                    <th>Wiek</th>
+                    <th>Wykształcenie</th>
+                    <th>Hipoteka</th>
+                    <th>Kredyt</th>
+                    <th>Wynik</th>
                 </tr>
             </thead>
             <tbody>
-            {forecasts.map(forecast =>
-                <tr key={ forecast.dateFormatted }>
-                    <td>{ forecast.dateFormatted }</td>
-                    <td>{ forecast.temperatureC }</td>
-                    <td>{ forecast.temperatureF }</td>
-                    <td>{ forecast.summary }</td>
+                {klienci.map(klient =>
+                    <tr key={klient.id} >
+                        <td>{klient.wiek}</td>
+                        <td>{klient.wyksztalcenie}</td>
+                        <td>{klient.hipoteka}</td>
+                        <td>{klient.kredyt}</td>
+                        <td>{klient.wynik}</td>
                 </tr>
             )}
             </tbody>
@@ -55,9 +57,11 @@ export class FetchData extends React.Component<RouteComponentProps<{}>, FetchDat
     }
 }
 
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
+interface KlientWynik {
+    id: string,
+    wiek: number;
+    wyksztalcenie: string;
+    hipoteka: string;
+    kredyt: string;
+    wynik: string;
 }

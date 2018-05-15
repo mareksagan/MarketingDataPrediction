@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MarketingDataPrediction.DataLayer.Enums;
 using MarketingDataPrediction.DataLayer.Models;
+using MarketingDataPrediction.LogicLayer.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UzytkownikController : Controller
     {
         MarketingDataPredictionDbContext _db;
@@ -19,41 +21,37 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             _db = new MarketingDataPredictionDbContext();
         }
 
-        // GET api/Uzytkownik
-        [HttpGet]
+        [HttpGet("[action]")]
         public JsonResult Get()
         {
-            var response = _db.Klient.Where(k => k.Wiek == 56).ToList();
+            var response = from k in _db.Klient
+                           where k.Wiek == 56
+                           select new KlientWynikUczeniaDTO()
+                           {
+                               Id = k.IdKlient.ToString(),
+                               Wiek = k.Wiek.GetValueOrDefault(),
+                               Wyksztalcenie = ((WyksztalcenieEnum) k.Wyksztalcenie.GetValueOrDefault()).ToString(),
+                               Kredyt = ((StatusFinansowyEnum) k.Kzadluzenie.GetValueOrDefault()).ToString(),
+                               Hipoteka = ((StatusFinansowyEnum)k.Khipoteczny.GetValueOrDefault()).ToString(),
+                               Wynik = ((RezultatEnum)k.Wynik.FirstOrDefault().Rezultat).ToString()
+                           };
 
             var dataTable = new DataTable();
             // DataTables from db and decision trees example
 
-            return Json(response);
+            return Json(response.ToList());
         }
 
-        // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
         {
-        }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

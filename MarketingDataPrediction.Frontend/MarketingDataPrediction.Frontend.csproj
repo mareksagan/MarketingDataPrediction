@@ -61,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\components\NewFolder\" />
+    <Folder Include="ClientApp\components\Shared\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
