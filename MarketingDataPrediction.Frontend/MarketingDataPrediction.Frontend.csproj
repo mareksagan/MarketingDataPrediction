@@ -49,7 +49,7 @@
     <TypeScriptCompile Include="ClientApp\components\Admin\WylogujAdmina.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\WyswietlStatystykiSystemu.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\ZmienParametry.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EdytujProfiUzytkownika.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EdytujProfilUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\EksportujWyniki.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\HomeUzytkownika.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\ZalogujUzytkownika.tsx" />
