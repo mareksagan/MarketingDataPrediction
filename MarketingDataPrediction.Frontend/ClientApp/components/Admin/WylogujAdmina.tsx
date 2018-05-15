@@ -7,15 +7,15 @@ export class WylogujAdmina extends React.Component<RouteComponentProps<{}>, {}> 
 
     public render() {
         return <div>
-            {/*<Modal isOpen>
+            <Modal isOpen>
                     <ModalHeader >Wylogowanie</ModalHeader>
-                    <ModalBody> */}
+                    <ModalBody>
                         Zostałeś wylogowany!
-                    {/*</ModalBody>
+                    </ModalBody>
                     <ModalFooter>
                         Footer
                     </ModalFooter>
-                </Modal>*/}
+                </Modal>
             </div>
     }
 }
