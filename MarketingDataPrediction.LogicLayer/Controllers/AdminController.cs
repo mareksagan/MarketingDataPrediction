@@ -18,44 +18,20 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             _db = new MarketingDataPredictionDbContext();
         }
 
-        [HttpGet("[action]")]
-        public JsonResult Zaloguj()
+        [HttpPost("[action]")]
+        public JsonResult DodajUzytkownika()
         {
             return Json("hel");
         }
 
-        [HttpGet("[action]")]
-        public JsonResult Zarejestruj()
+        [HttpPost("[action]")]
+        public JsonResult EdytujUzytkownika()
         {
             return Json("hel");
         }
 
-        [HttpGet("[action]")]
-        public JsonResult DodajAdmina()
-        {
-            return Json("hel");
-        }
-
-        [HttpGet("[action]")]
-        public JsonResult EdytujAdmina()
-        {
-            return Json("hel");
-        }
-
-        [HttpGet("[action]")]
-        public JsonResult WeryfikacjaLogowania()
-        {
-            return Json("hel");
-        }
-
-        [HttpGet("[action]")]
-        public JsonResult Wyloguj()
-        {
-            return Json("hel");
-        }
-
-        [HttpGet("[action]")]
-        public JsonResult ZmienParametry()
+        [HttpPost("[action]")]
+        public JsonResult UsunUzytkownika()
         {
             return Json("hel");
         }

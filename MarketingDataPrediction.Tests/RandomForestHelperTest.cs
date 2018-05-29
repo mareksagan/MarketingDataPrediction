@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MarketingDataPrediction.Tests
 {
-    class RandomForestTest
+    class RandomForestHelperTest
     {
     }
 }

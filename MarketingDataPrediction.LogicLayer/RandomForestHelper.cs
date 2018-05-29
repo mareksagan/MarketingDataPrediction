@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Accord.MachineLearning.DecisionTrees;
+using Accord.Math;
+using Accord.Math.Optimization.Losses;
+using Accord.Statistics.Filters;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,26 +12,44 @@ namespace MarketingDataPrediction.LogicLayer
 {
     public class RandomForestHelper
     {
-        DbContext _db;
-
-        public RandomForestHelper(DbContext db)
+        private double IloscDanychModelu;
+        private int[] KolumnaWynikow;
+        private int[] Rezultaty;
+        
+        public RandomForestHelper(double iloscDanychModelu)
         {
-            _db = db;
+            KolumnaWynikow = null;
+            Rezultaty = null;
+            IloscDanychModelu = iloscDanychModelu;
         }
 
-        public string RozpocznijUczenie()
+        public void Uczenie(string[] naglowki, string[][] dane)
         {
-            return "";
+            Codification kody = new Codification(naglowki, dane);
+
+            int[][] symbole = kody.Transform(dane);
+            int[][] daneWejsciowe = symbole.Get(null, 0, -1);
+
+            KolumnaWynikow = symbole.GetColumn(-1);
+
+            RandomForestLearning teacher = new RandomForestLearning()
+            {
+                SampleRatio = IloscDanychModelu
+            };
+
+            RandomForest forest = teacher.Learn(daneWejsciowe, KolumnaWynikow);
+
+            Rezultaty = forest.Decide(daneWejsciowe);
         }
 
-        public string PoliczStatystyki()
+        public double PoliczBlad()
         {
-            return "";
+            return new ZeroOneLoss(KolumnaWynikow).Loss(Rezultaty);
         }
 
-        public string ZwrocWyniki()
+        public int[] ZwrocWyniki()
         {
-            return "";
+            return Rezultaty;
         }
     }
 }

@@ -13,7 +13,7 @@ const data = [
     { name: 'G', uv: 3490, pv: 4300, amt: 2100 }
 ];
 
-export class WyswietlStatystyki extends React.Component<RouteComponentProps<{}>, {}> {
+export class Statystyki extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return (
             <LineChart width={500} height={300} data={data}>

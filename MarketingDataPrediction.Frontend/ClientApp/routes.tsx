@@ -3,31 +3,21 @@ import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 
-import { ZarejestrujUzytkownika } from './components/Uzytkownik/ZarejestrujUzytkownika';
-import { ZalogujUzytkownika } from './components/Uzytkownik/ZalogujUzytkownika';
-import { WylogujUzytkownika } from './components/Uzytkownik/WylogujUzytkownika';
-import { WyswietlStatystyki } from './components/Uzytkownik/WyswietlStatystyki';
-import { EdytujProfilUzytkownika } from './components/Uzytkownik/EdytujProfilUzytkownika';
-import { WyswietlWyniki } from './components/Uzytkownik/WyswietlWyniki';
-
-import { ZarejestrujAdmina } from './components/Admin/ZarejestrujAdmina';
-import { WylogujAdmina } from './components/Admin/WylogujAdmina';
-import { ZalogujAdmina } from './components/Admin/ZalogujAdmina';
-import { WyswietlStatystykiSystemu } from './components/Admin/WyswietlStatystykiSystemu';
-
+import { Zarejestruj } from './components/Uzytkownik/Zarejestruj';
+import { Zaloguj } from './components/Shared/Zaloguj';
+import { Profil } from './components/Shared/Profil';
+import { UczenieMaszynowe } from './components/Uzytkownik/UczenieMaszynowe';
+import { Statystyki } from './components/Uzytkownik/Statystyki';
+import { StatystykiSystemu } from './components/Admin/StatystykiSystemu';
 
 export const routes = <Layout>
     <Route exact path='/' component={Home} />
 
-    <Route path='/zarejestrujUzytkownika' component={ZarejestrujUzytkownika} />
-    <Route path='/zalogujUzytkownika' component={ZalogujUzytkownika} />
-    <Route path='/wylogujUzytkownika' component={WylogujUzytkownika} />
-    <Route path='/wyswietlStatystyki' component={WyswietlStatystyki} />
-    <Route path='/edytujProfilUzytkownika' component={EdytujProfilUzytkownika} />
-    <Route path='/wyswietlWyniki' component={WyswietlWyniki} />
-
-    <Route path='/zarejestrujAdmina' component={ZarejestrujAdmina} />
-    <Route path='/zalogujAdmina' component={ZalogujAdmina} />
-    <Route path='/wylogujAdmina' component={WylogujAdmina} />
-    <Route path='/wyswietlStatystykiSystemu' component={WyswietlStatystyki} />
+    <Route path='/zarejestruj' component={Zarejestruj} />
+    <Route path='/zaloguj' component={Zaloguj} />
+    {/*<Route path='/dashboard' component={Dashboard} />*/}
+    <Route path='/statystyki' component={Statystyki} />
+    <Route path='/profil' component={Profil} />
+    <Route path='/uczenieMaszynowe' component={UczenieMaszynowe} />
+    <Route path='/statystykiSystemu' component={Statystyki} />
 </Layout>;
