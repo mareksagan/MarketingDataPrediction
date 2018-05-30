@@ -35,5 +35,11 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         {
             return Json("hel");
         }
+
+        [HttpPost("[action]")]
+        public JsonResult StatystykSystemu()
+        {
+            return Json("hel");
+        }
     }
 }

@@ -2,6 +2,7 @@
 using MarketingDataPrediction.DataLayer.Enums;
 using MarketingDataPrediction.DataLayer.Models;
 using MarketingDataPrediction.LogicLayer.BusinessObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
@@ -17,6 +18,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             _db = new MarketingDataPredictionDbContext();
         }
 
+        [Authorize(Roles = "Uzytkownik")]
         [HttpGet("[action]")]
         public JsonResult UczenieMaszynowe()
         {
@@ -70,6 +72,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             return Json(actionResult);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("[action]")]
         public JsonResult Statystyki()
         {
@@ -81,6 +84,20 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             };
 
             return Json(result);
+        }
+
+        [Authorize(Roles = "Uzytkownik")]
+        [HttpGet("[action]")]
+        public JsonResult Zarejestruj()
+        {
+            return Json("ok");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("[action]")]
+        public JsonResult ZmienProfil()
+        {
+            return Json("");
         }
     }
 }

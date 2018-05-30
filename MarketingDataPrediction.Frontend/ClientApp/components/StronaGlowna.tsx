@@ -2,7 +2,7 @@
 import { RouteComponentProps } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export class Home extends React.Component<RouteComponentProps<{}>, {}> {
+export class StronaGlowna extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
             <h1>Witaj!</h1>

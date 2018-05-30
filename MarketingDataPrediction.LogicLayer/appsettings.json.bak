@@ -1,9 +1,4 @@
-{
-  "TokenConfigurations": {
-    "Audience": "MDPAudience",
-    "Issuer": "MDPIssuer",
-    "Seconds": 120
- },
+﻿{
   "Logging": {
     "IncludeScopes": false,
     "Debug": {

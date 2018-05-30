@@ -2,6 +2,11 @@
 import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
+
+    onLogin() {
+        
+    }
+
     public render() {
         return <div className='main-nav'>
                 <div className='navbar navbar-inverse'>
@@ -19,12 +24,17 @@ export class NavMenu extends React.Component<{}, {}> {
                     <ul className='nav navbar-nav'>
                         <li>
                             <NavLink to={ '/' } exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home
+                                <span className='glyphicon glyphicon-home'></span> Strona główna
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to={ '/wyswietlWyniki' } activeClassName='active'>
-                                <span className='glyphicon glyphicon-eur'></span> Wyświetl wyniki
+                            <NavLink to={ '/uczenieMaszynowe' } activeClassName='active'>
+                                <span className='glyphicon glyphicon-education'></span> Uczenie maszynowe
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={'/zaloguj'} activeClassName='active'>
+                                <span className='glyphicon glyphicon-log-in'></span> Zaloguj
                             </NavLink>
                         </li>
                     </ul>

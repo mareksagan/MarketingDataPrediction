@@ -6,8 +6,8 @@
 .main-nav li a.active,
 .main-nav li a.active:hover,
 .main-nav li a.active:focus {
-    background-color: #4189C7;
-    color: white;
+    background-color: lightgreen;
+    color: black;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */
@@ -63,4 +63,19 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+/* Custom styles */
+
+.navbar {
+    background-color: mediumseagreen;
+}
+
+.main-nav li a {
+    color: white !important
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
 }

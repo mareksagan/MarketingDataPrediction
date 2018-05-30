@@ -1,4 +1,4 @@
-﻿using MarketingDataPrediction.LogicLayer;
+﻿using MarketingDataPrediction.LogicLayer.Controllers;
 using NSubstitute;
 using System;
 using System.Collections.Generic;
@@ -10,22 +10,13 @@ namespace MarketingDataPrediction.Tests
     public class TokenControllerTest
     {
         [Fact]
-        public void PassingTest()
+        public void CzyGenerujeToken()
         {
-            Assert.Equal(4, Add(2, 2));
-        }
+            var controller = new TokenController();
 
-        [Fact]
-        public void FailingTest()
-        {
-            var someClass = Substitute.For<RandomForestHelper>("hello world");
+            //var response = controller.PobierzToken(null,null).ToString();
 
-            Assert.Equal("hello world", someClass.PoliczBlad().ToString());
-        }
-
-        int Add(int x, int y)
-        {
-            return x + y;
+            Assert.NotEqual("", "");
         }
     }
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
-import { Home } from './components/Home';
+import { StronaGlowna } from './components/StronaGlowna';
 
 import { Zarejestruj } from './components/Uzytkownik/Zarejestruj';
 import { Zaloguj } from './components/Shared/Zaloguj';
@@ -11,7 +11,7 @@ import { Statystyki } from './components/Uzytkownik/Statystyki';
 import { StatystykiSystemu } from './components/Admin/StatystykiSystemu';
 
 export const routes = <Layout>
-    <Route exact path='/' component={Home} />
+    <Route exact path='/' component={StronaGlowna} />
 
     <Route path='/zarejestruj' component={Zarejestruj} />
     <Route path='/zaloguj' component={Zaloguj} />

@@ -1,49 +1,119 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Security.Principal;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using System;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Security.Principal;
+using Microsoft.IdentityModel.Tokens;
+using MarketingDataPrediction.LogicLayer.BusinessObjects;
+using MarketingDataPrediction.DataLayer.Models;
+using System.Linq;
+using MarketingDataPrediction.Security;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Token")]
+    [Route("[controller]")]
     public class TokenController : Controller
     {
-        public ActionResult GenerujToken()
+        MarketingDataPredictionDbContext _db = null;
+
+        public TokenController()
         {
-            return Json("");
+            _db = new MarketingDataPredictionDbContext();
         }
 
-        public bool PobierzToken()
+        [AllowAnonymous]
+        [HttpPost("[action]")]
+        public object PobierzToken(
+             [FromServices]SigningConfigurations signingConfigurations,
+             [FromServices]TokenConfigurations tokenConfigurations,
+             [FromForm]UzytkownikLoginBO uzytkownik)
         {
-            return true;
+            string email = uzytkownik.Email;
+            string haslo = uzytkownik.Haslo;
+
+            DateTime dtCreation = DateTime.Now;
+            DateTime dtExpiration = dtCreation + TimeSpan.FromSeconds(tokenConfigurations.Seconds);
+
+            string token = null;
+
+            Object odpowiedz = null;
+
+            IQueryable<Uzytkownik> query = _db.Uzytkownik.Where(u => u.Email == email && u.Haslo == haslo);
+
+            bool authentication = (query.Count() > 0);
+
+            if (authentication)
+            {
+                var instance = query.FirstOrDefault();
+
+                var userId = instance.IdUzytkownik;
+                var isAdmin = instance.Admin;
+
+                try
+                {
+                    token = GenerujToken(signingConfigurations, tokenConfigurations, dtCreation, dtExpiration, userId.ToString(), isAdmin);
+                }
+                catch (Exception e)
+                {
+                    return new
+                    {
+                        authenticated = false,
+                        message = e.Message.ToString()
+                    };
+                }
+
+                odpowiedz = new
+                {
+                    authenticated = true,
+                    created = dtCreation.ToString("yyyy-MM-dd HH:mm:ss"),
+                    expiration = dtExpiration.ToString("yyyy-MM-dd HH:mm:ss"),
+                    accessToken = token,
+                    message = "OK"
+                };
+            }
+            else if (!authentication)
+            {
+                odpowiedz = new
+                {
+                    authenticated = false,
+                    message = "Failed to authenticate"
+                };
+            }
+
+            return odpowiedz;
         }
 
-        public bool Zaloguj()
+        private string GenerujToken(SigningConfigurations signingConfigurations, TokenConfigurations tokenConfigurations, DateTime creation, DateTime expiration, string userId, bool isAdmin)
         {
-            return true;
-        }
+            Claim adminRole = null;
 
-        public bool Wyloguj()
-        {
-            return true;
-        }
+            if (isAdmin)
+            {
+                adminRole = new Claim(ClaimTypes.Role, "Admin");
+            }
 
-        public bool Zarejestruj()
-        {
-            return true;
-        }
+            ClaimsIdentity identity = new ClaimsIdentity(
+                new GenericIdentity(userId, "Login"),
+                new Claim[] {
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+                    new Claim(ClaimTypes.Role, "Uzytkownik"),
+                    adminRole
+                }
+            );
+            
+            var handler = new JwtSecurityTokenHandler();
 
-        public bool Profil()
-        {
-            return true;
+            var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+            {
+                Issuer = tokenConfigurations.Issuer,
+                Audience = tokenConfigurations.Audience,
+                SigningCredentials = signingConfigurations.SigningCredentials,
+                Subject = identity,
+                NotBefore = creation,
+                Expires = expiration
+            });
+            return handler.WriteToken(securityToken);
         }
 
         public void Dispose()

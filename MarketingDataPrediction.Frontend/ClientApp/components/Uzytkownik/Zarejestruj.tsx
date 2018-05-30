@@ -24,7 +24,7 @@ export class Zarejestruj extends React.Component<RouteComponentProps<{}>, {}> {
                     <Label for="powtorzHaslo">Powtórz hasło</Label>
                     <Input />
                     {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Potwórz hasło</FormText>
+                    <FormText>Powtórz hasło</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="imie">Imię</Label>
