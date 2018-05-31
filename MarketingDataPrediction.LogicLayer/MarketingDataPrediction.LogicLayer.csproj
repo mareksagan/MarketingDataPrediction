@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>192714ac-cec9-48f0-a90b-0f1f1485ca7e</UserSecretsId>
   </PropertyGroup>
 
@@ -13,6 +13,7 @@
     <PackageReference Include="Accord.MachineLearning.GPL" Version="3.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.0.3" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
-    [Route("[controller]")]
+    [Route("admin")]
     public class AdminController : Controller
     {
         MarketingDataPredictionDbContext _db;
@@ -37,7 +37,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         }
 
         [HttpPost("[action]")]
-        public JsonResult StatystykSystemu()
+        public JsonResult StatystykiSystemu()
         {
             return Json("hel");
         }

@@ -5,18 +5,36 @@ import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'r
 import { Link } from "react-router-dom";
 
 export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
+    constructor() {
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            data: "beniz"
+        }
+    }
+
+    handleSubmit() {
+        this.state = { tokenresponse: [], loading: true };
+
+        fetch('https://localhost:44340/token')
+            .then(response => response.json() as Promise<TokenResponse[]>)
+            .then(data => {
+                this.setState({ tokenResponse: data, loading: false });
+            });
+    }
+
     public render() {
         return <div>
 
-            <Form>
+            <Form formAction='https://localhost:44319/token' method='POST' onSubmit={this.handleSubmit} >
                 <FormGroup>
-                    <Label for="email">Email</Label>
+                    <Label for="Email">Email</Label>
                     <Input />
                     {/*<FormFeedback>Email jest dostępny</FormFeedback>*/}
                     <FormText>Wprowadź email</FormText>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="haslo">Hasło</Label>
+                    <Label for="Haslo">Hasło</Label>
                     <Input />
                     {/*wyloguj przez nadpisanie null token*/}
                     <FormText>Wprowadź hasło do konta</FormText>
@@ -25,8 +43,7 @@ export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
             </Form>
             <br/>
             <span>
-
-            
+                {/*this.state.data*/}
             Nie masz konta?
             
             <br/>
@@ -37,4 +54,12 @@ export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
             </span>
         </div>;
     }
+}
+
+interface TokenResponse {
+    authenticated: boolean,
+    created: string;
+    expiration: string;
+    accessToken: string;
+    message: string;
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,10 +38,16 @@ namespace MarketingDataPrediction
                     HotModuleReplacement = true,
                     ReactHotModuleReplacement = true
                 });
+
+                app.UseHsts(h => h.MaxAge(days: 365).IncludeSubdomains().Preload());
+                app.UseRewriter(new RewriteOptions().AddRedirectToHttps(StatusCodes.Status301MovedPermanently, 44309));
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+
+                app.UseHsts(h => h.MaxAge(days: 365).IncludeSubdomains().Preload());
+                app.UseRewriter(new RewriteOptions().AddRedirectToHttps(StatusCodes.Status301MovedPermanently, 443));
             }
 
             app.UseStaticFiles();

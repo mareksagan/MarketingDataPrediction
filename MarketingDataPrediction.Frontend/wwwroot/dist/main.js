@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eec3c7ae834a9dac2af8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "78512785294ef307b89a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -47267,10 +47267,6 @@ var NavMenu = (function (_super) {
                                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'glyphicon glyphicon-home' }),
                                 " Strona g\u0142\u00F3wna")),
                         __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("li", null,
-                            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"], { to: '/uczenieMaszynowe', activeClassName: 'active' },
-                                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'glyphicon glyphicon-education' }),
-                                " Uczenie maszynowe")),
-                        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("li", null,
                             __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["NavLink"], { to: '/zaloguj', activeClassName: 'active' },
                                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("span", { className: 'glyphicon glyphicon-log-in' }),
                                 " Zaloguj"))))));
@@ -47373,17 +47369,31 @@ var __extends = (this && this.__extends) || (function () {
 var Zaloguj = (function (_super) {
     __extends(Zaloguj, _super);
     function Zaloguj() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.state = {
+            data: "beniz"
+        };
+        return _this;
     }
+    Zaloguj.prototype.handleSubmit = function () {
+        var _this = this;
+        this.state = { tokenresponse: [], loading: true };
+        fetch('https://localhost:44340/token')
+            .then(function (response) { return response.json(); })
+            .then(function (data) {
+            _this.setState({ tokenResponse: data, loading: false });
+        });
+    };
     Zaloguj.prototype.render = function () {
         return __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", null,
-            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["a" /* Form */], null,
+            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["a" /* Form */], { formAction: 'https://localhost:44340/token', method: 'POST', onSubmit: this.handleSubmit },
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* FormGroup */], null,
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Label */], { for: "email" }, "Email"),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Label */], { for: "Email" }, "Email"),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* Input */], null),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* FormText */], null, "Wprowad\u017A email")),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* FormGroup */], null,
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Label */], { for: "haslo" }, "Has\u0142o"),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Label */], { for: "Haslo" }, "Has\u0142o"),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* Input */], null),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* FormText */], null, "Wprowad\u017A has\u0142o do konta")),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* Button */], null, "Zaloguj")),
@@ -47521,7 +47531,7 @@ var UczenieMaszynowe = (function (_super) {
     function UczenieMaszynowe() {
         var _this = _super.call(this) || this;
         _this.state = { klienci: [], loading: true };
-        fetch('http://localhost:52025/Uzytkownik/Get')
+        fetch('https://localhost:44340/uzytkownik/uczenieMaszynowe')
             .then(function (response) { return response.json(); })
             .then(function (data) {
             _this.setState({ klienci: data, loading: false });

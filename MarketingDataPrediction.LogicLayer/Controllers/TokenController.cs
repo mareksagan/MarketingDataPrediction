@@ -12,7 +12,6 @@ using MarketingDataPrediction.Security;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
-    [Route("[controller]")]
     public class TokenController : Controller
     {
         MarketingDataPredictionDbContext _db = null;
@@ -23,11 +22,11 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("[action]")]
-        public object PobierzToken(
+        [HttpPost("token")]
+        public JsonResult PobierzToken(
              [FromServices]SigningConfigurations signingConfigurations,
              [FromServices]TokenConfigurations tokenConfigurations,
-             [FromForm]UzytkownikLoginBO uzytkownik)
+             [FromForm]LoginBO uzytkownik)
         {
             string email = uzytkownik.Email;
             string haslo = uzytkownik.Haslo;
@@ -56,11 +55,14 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 }
                 catch (Exception e)
                 {
-                    return new
-                    {
-                        authenticated = false,
-                        message = e.Message.ToString()
-                    };
+                    return Json
+                    (
+                        new
+                        {
+                            authenticated = false,
+                            message = e.Message.ToString()
+                        }
+                    );
                 }
 
                 odpowiedz = new
@@ -81,24 +83,23 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 };
             }
 
-            return odpowiedz;
+            return Json(odpowiedz);
         }
 
         private string GenerujToken(SigningConfigurations signingConfigurations, TokenConfigurations tokenConfigurations, DateTime creation, DateTime expiration, string userId, bool isAdmin)
         {
-            Claim adminRole = null;
+            string role = "Uzytkownik";
 
             if (isAdmin)
             {
-                adminRole = new Claim(ClaimTypes.Role, "Admin");
+                role = "Admin";
             }
 
             ClaimsIdentity identity = new ClaimsIdentity(
                 new GenericIdentity(userId, "Login"),
                 new Claim[] {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                    new Claim(ClaimTypes.Role, "Uzytkownik"),
-                    adminRole
+                    new Claim(ClaimTypes.Role, role)
                 }
             );
             

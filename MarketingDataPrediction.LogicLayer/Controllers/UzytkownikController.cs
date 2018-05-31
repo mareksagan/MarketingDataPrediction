@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
-    [Route("[controller]")]
+    [Route("uzytkownik")]
     public class UzytkownikController : Controller
     {
         MarketingDataPredictionDbContext _db;
@@ -46,7 +46,6 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                                k.Inne.IloscProbAkt.ToString(),
                                k.Inne.PopRezultat.ToString(),
                                ((RezultatEnum)k.Wynik.Rezultat).ToString()
-                               //more TypeScript
                            };
 
             string[] nazwyKolumn =
@@ -72,7 +71,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             return Json(actionResult);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Uzytkownik")]
         [HttpGet("[action]")]
         public JsonResult Statystyki()
         {
@@ -95,7 +94,8 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpGet("[action]")]
-        public JsonResult ZmienProfil()
+        public JsonResult ZmienProfil(
+            )
         {
             return Json("");
         }

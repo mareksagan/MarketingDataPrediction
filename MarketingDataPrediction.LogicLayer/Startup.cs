@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MarketingDataPrediction.Security;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Http;
 
 namespace MarketingDataPrediction.LogicLayer
 {
@@ -70,7 +72,15 @@ namespace MarketingDataPrediction.LogicLayer
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }            
+
+                app.UseHsts(h => h.MaxAge(days: 365).IncludeSubdomains().Preload());
+                app.UseRewriter(new RewriteOptions().AddRedirectToHttps(StatusCodes.Status301MovedPermanently, 44319));
+            }
+            else
+            {
+                app.UseHsts(h => h.MaxAge(days: 365).IncludeSubdomains().Preload());
+                app.UseRewriter(new RewriteOptions().AddRedirectToHttps(StatusCodes.Status301MovedPermanently, 443));
+            }
 
             app.UseAuthentication();
 

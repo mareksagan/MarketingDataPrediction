@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace MarketingDataPrediction.LogicLayer.BusinessObjects
 {
-    public class UzytkownikLoginBO
+    public class StatystykiSystemuBO
     {
-        public string Email { get; set; }
-        public string Haslo { get; set; }
     }
 }

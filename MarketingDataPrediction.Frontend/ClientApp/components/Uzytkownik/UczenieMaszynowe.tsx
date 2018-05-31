@@ -12,7 +12,7 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, F
         super();
         this.state = { klienci: [], loading: true };
 
-        fetch('http://localhost:52025/Uzytkownik/Get')
+        fetch('https://localhost:44319/uzytkownik/uczenieMaszynowe')
             .then(response => response.json() as Promise<KlientWynik[]>)
             .then(data => {
                 this.setState({ klienci: data, loading: false });
