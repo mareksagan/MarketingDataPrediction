@@ -1,1 +1,0 @@
-﻿{/*adjustable for user and admin, different buttons*/}

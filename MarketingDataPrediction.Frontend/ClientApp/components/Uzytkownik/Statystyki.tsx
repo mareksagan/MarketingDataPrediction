@@ -1,28 +1,78 @@
 ﻿import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { LineChart, XAxis, YAxis, CartesianGrid, Line } from 'recharts';
-import { RouteComponentProps } from "react-router";
+import { BarChart, Bar, Legend, XAxis, YAxis} from 'recharts';
+import { RouteComponentProps, Redirect } from "react-router";
+import Axios from "axios";
 
-const data = [
-    { name: 'A', uv: 4000, pv: 2400, amt: 2400 },
-    { name: 'B', uv: 3000, pv: 1398, amt: 2210 },
-    { name: 'C', uv: 2000, pv: 9800, amt: 2290 },
-    { name: 'D', uv: 2780, pv: 3908, amt: 2000 },
-    { name: 'E', uv: 1890, pv: 4800, amt: 2181 },
-    { name: 'F', uv: 2390, pv: 3800, amt: 2500 },
-    { name: 'G', uv: 3490, pv: 4300, amt: 2100 }
-];
+export class Statystyki extends React.Component<RouteComponentProps<{}>, {statystyki: statystykiResponse, token: string}> {
+    constructor() {
+        super();
 
-export class Statystyki extends React.Component<RouteComponentProps<{}>, {}> {
-    public render() {
-        return (
-            <LineChart width={500} height={300} data={data}>
-                <XAxis dataKey="name" />
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-            </LineChart>
-        );
+        this.state = { statystyki: {} as statystykiResponse, token: "" };
+
+        var tmpToken = sessionStorage.getItem('token') as string;
+
+        this.setState({token: tmpToken });
+
+        var self = this;
+
+        debugger;
+
+        Axios.get("https://localhost:44319/uzytkownik/Statystyki",
+        { headers: {'Authorization':  'Bearer ' + tmpToken} })
+        .then(function (response)
+        {
+            debugger;
+            var tmpResponse = response.data as statystykiResponse;
+
+            console.log(tmpResponse.miesiaceKontaktu);
+
+            self.setState({ statystyki: tmpResponse });
+        })
+        .catch(function (error)
+        {
+            console.log(error);
+        });
     }
+    
+    public render() {
+        if (this.state.token == "")
+        {
+            return <Redirect to='/zaloguj/'/>;
+        }
+        else
+        {
+            return <div>
+                <h1>Ilość kontaktów w danym miesiącu</h1>
+                <BarChart width={700} height={300} data={this.state.statystyki.miesiaceKontaktu as StatystykiBO[]}
+                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                <XAxis dataKey="miesiac"/>
+                <YAxis/>
+                <Legend />
+                <Bar name='Ilość kontaktów w danym miesiącu' dataKey="iloscKontaktow" fill="#8884d8" />
+                </BarChart>
+                <h1>Inne statystyki</h1>
+                <span>
+                    <b>Średni wiek klienta w latach: </b> {this.state.statystyki.sredniWiekKlienta}
+                    <br/>
+                    <b>Średnia długość kontaktu w minutach: </b> {this.state.statystyki.sredniaDlugoscKontaktu / 60}
+                </span>
+            </div>
+        }
+        
+    }
+}
+
+interface StatystykiBO
+{
+    miesiac: string;
+    iloscKontaktow: number;
+}
+
+interface statystykiResponse
+{
+    miesiaceKontaktu: StatystykiBO[];
+    sredniWiekKlienta: number;
+    sredniaDlugoscKontaktu: number;
+    length: number;
 }

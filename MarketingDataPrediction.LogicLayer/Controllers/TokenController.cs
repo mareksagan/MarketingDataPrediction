@@ -9,16 +9,24 @@ using MarketingDataPrediction.LogicLayer.BusinessObjects;
 using MarketingDataPrediction.DataLayer.Models;
 using System.Linq;
 using MarketingDataPrediction.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
     public class TokenController : Controller
     {
-        MarketingDataPredictionDbContext _db = null;
+        private MarketingDataPredictionDbContext _db = null;
 
-        public TokenController()
+        public TokenController(DbContext context = null)
         {
-            _db = new MarketingDataPredictionDbContext();
+            if (context == null)
+            {
+                _db = new MarketingDataPredictionDbContext();
+            }
+            else if (context != null)
+            {
+                _db = (MarketingDataPredictionDbContext) context;
+            }
         }
 
         [AllowAnonymous]
@@ -36,7 +44,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
             string token = null;
 
-            Object odpowiedz = null;
+            TokenBO odpowiedz = null;
 
             IQueryable<Uzytkownik> query = _db.Uzytkownik.Where(u => u.Email == email && u.Haslo == haslo);
 
@@ -57,36 +65,42 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 {
                     return Json
                     (
-                        new
+                        new TokenBO
                         {
-                            authenticated = false,
-                            message = e.Message.ToString()
+                            Authenticated = false,
+                            Created = "",
+                            Expiration = "",
+                            AccessToken = "",
+                            Message = e.Message.ToString()
                         }
                     );
                 }
 
-                odpowiedz = new
+                odpowiedz = new TokenBO
                 {
-                    authenticated = true,
-                    created = dtCreation.ToString("yyyy-MM-dd HH:mm:ss"),
-                    expiration = dtExpiration.ToString("yyyy-MM-dd HH:mm:ss"),
-                    accessToken = token,
-                    message = "OK"
+                    Authenticated = true,
+                    Created = dtCreation.ToString("yyyy-MM-dd HH:mm:ss"),
+                    Expiration = dtExpiration.ToString("yyyy-MM-dd HH:mm:ss"),
+                    AccessToken = token,
+                    Message = "OK"
                 };
             }
             else if (!authentication)
             {
-                odpowiedz = new
+                odpowiedz = new TokenBO
                 {
-                    authenticated = false,
-                    message = "Failed to authenticate"
+                    Authenticated = false,
+                    Created = "",
+                    Expiration = "",
+                    AccessToken = "",
+                    Message = "Failed to authenticate"
                 };
             }
 
             return Json(odpowiedz);
         }
 
-        private string GenerujToken(SigningConfigurations signingConfigurations, TokenConfigurations tokenConfigurations, DateTime creation, DateTime expiration, string userId, bool isAdmin)
+        public string GenerujToken(SigningConfigurations signingConfigurations, TokenConfigurations tokenConfigurations, DateTime creation, DateTime expiration, string userId, bool isAdmin)
         {
             string role = "Uzytkownik";
 

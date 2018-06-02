@@ -3,49 +3,63 @@ import * as ReactDOM from "react-dom";
 import { RouteComponentProps } from 'react-router';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import { Link } from "react-router-dom";
+import Axios from 'axios';
 
 export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = {
-            data: "beniz"
-        }
     }
 
-    handleSubmit() {
-        this.state = { tokenresponse: [], loading: true };
+    public handleSubmit(e : React.MouseEvent<any>) {
+        e.preventDefault();
 
-        fetch('https://localhost:44340/token')
-            .then(response => response.json() as Promise<TokenResponse[]>)
-            .then(data => {
-                this.setState({ tokenResponse: data, loading: false });
-            });
+        var self = this;
+
+        var bodyFormData = new FormData();
+        bodyFormData.set("Email", "a@domena.pl");
+        bodyFormData.set("Haslo", "haslo456");
+
+        Axios.post("https://localhost:44319/token", bodyFormData,
+        { headers: {'Content-Type': 'application/x-www-form-urlencoded' }})
+        .then(function (response)
+        {
+            var tmpTokenResponse = response.data as TokenResponse;
+            sessionStorage.setItem('token', tmpTokenResponse.accessToken);
+            debugger;
+            console.log("Authenticated: " + String(tmpTokenResponse.authenticated));
+            window.location.reload();
+        })
+        .catch(function (error)
+        {
+            console.log(error);
+        });
     }
 
     public render() {
         return <div>
-
-            <Form formAction='https://localhost:44319/token' method='POST' onSubmit={this.handleSubmit} >
+            {/* <Form>
+                <Label for='Zaloguj'>Zaloguj</Label>
                 <FormGroup>
-                    <Label for="Email">Email</Label>
-                    <Input />
-                    {/*<FormFeedback>Email jest dostępny</FormFeedback>*/}
+                    
+                    <Input placeholder="Email"/>
+                    <FormFeedback>Email jest dostępny</FormFeedback>
                     <FormText>Wprowadź email</FormText>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="Haslo">Hasło</Label>
-                    <Input />
-                    {/*wyloguj przez nadpisanie null token*/}
+                    <Input placeholder='Hasło'/>
+                    wyloguj przez nadpisanie null token
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
-                <Button>Zaloguj</Button>
-            </Form>
+                <Button onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
+            </Form> */}
+
+            <Button onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
+
             <br/>
+
             <span>
-                {/*this.state.data*/}
             Nie masz konta?
-            
             <br/>
             <Link to={'/zarejestruj'}>
                 <span className='glyphicon glyphicon-plus-sign'></span> Zarejestruj

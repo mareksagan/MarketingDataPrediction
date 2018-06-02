@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace MarketingDataPrediction.LogicLayer.BusinessObjects
 {
-    public class StatystykiSystemuBO
+    public class MiesiacKontaktBO
     {
-        public int IloscKlientow { get; set; }
-        public int IloscUzytkownikow {get;set;}
-        public int IloscAdminow { get; set; }
+        public string Miesiac { get; set; }
+        public int IloscKontaktow { get; set; }
     }
 }

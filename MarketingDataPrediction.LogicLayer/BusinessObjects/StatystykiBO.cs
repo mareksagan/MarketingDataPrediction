@@ -7,8 +7,8 @@ namespace MarketingDataPrediction.LogicLayer.BusinessObjects
 {
     public class StatystykiBO
     {
-        public double AverageClientAge { get; set; }
-        public string MostFreqMonth { get; set; }
-        public double AverageLoanAmount { get; set; }
+        public int SredniWiekKlienta { get; set; }
+        public MiesiacKontaktBO[] MiesiaceKontaktu { get; set; }
+        public int SredniaDlugoscKontaktu { get; set; }
     }
 }

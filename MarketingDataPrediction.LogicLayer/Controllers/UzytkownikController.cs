@@ -2,8 +2,11 @@
 using MarketingDataPrediction.DataLayer.Enums;
 using MarketingDataPrediction.DataLayer.Models;
 using MarketingDataPrediction.LogicLayer.BusinessObjects;
+using MarketingDataPrediction.LogicLayer.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
@@ -11,11 +14,18 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
     [Route("uzytkownik")]
     public class UzytkownikController : Controller
     {
-        MarketingDataPredictionDbContext _db;
+        private MarketingDataPredictionDbContext _db = null;
 
-        public UzytkownikController()
+        public UzytkownikController(DbContext context = null)
         {
-            _db = new MarketingDataPredictionDbContext();
+            if (context == null)
+            {
+                _db = new MarketingDataPredictionDbContext();
+            }
+            else if (context != null)
+            {
+                _db = (MarketingDataPredictionDbContext)context;
+            }
         }
 
         [Authorize(Roles = "Uzytkownik")]
@@ -23,6 +33,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         public JsonResult UczenieMaszynowe()
         {
             var response = from k in _db.Klient
+                           where k.Wiek > 56
                            select new string[]
                            {
                                k.Wiek.ToString(),
@@ -67,37 +78,104 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 Wyniki = rfh.ZwrocWyniki(),
                 Blad = rfh.PoliczBlad()
             };
-            //Identity core
+
             return Json(actionResult);
         }
 
-        [Authorize(Roles = "Admin,Uzytkownik")]
+        [Authorize(Roles = "Uzytkownik")]
         [HttpGet("[action]")]
         public JsonResult Statystyki()
         {
             var result = new StatystykiBO()
             {
-                AverageClientAge = _db.Klient.Average(k => k.Wiek),
-                AverageLoanAmount = _db.Klient.Average(k => k.Kzadluzenie),
-                MostFreqMonth = "January"
+                SredniWiekKlienta = (int)_db.Klient.Average(k => k.Wiek),
+                SredniaDlugoscKontaktu = (int)_db.Klient.Average(k => k.Kampania.DlugoscKontaktu),
+                MiesiaceKontaktu = _db.Kampania.GroupBy(k => k.MiesiacKontaktu)
+                .OrderBy(g => g.FirstOrDefault().MiesiacKontaktu).Select(c => new MiesiacKontaktBO
+                {
+                    Miesiac = ((MiesiacEnum)c.FirstOrDefault().MiesiacKontaktu).ToString(),
+                    IloscKontaktow = c.Count()
+                }).ToArray()
             };
 
             return Json(result);
         }
 
         [Authorize(Roles = "Uzytkownik")]
-        [HttpGet("[action]")]
-        public JsonResult Zarejestruj()
+        [HttpPost("[action]")]
+        public JsonResult Zarejestruj([FromBody]UzytkownikBO nowyUzytkownik)
         {
-            return Json("ok");
+            try
+            {
+                var lastUserId = _db.Uzytkownik.OrderByDescending(u => u.IdUzytkownik).FirstOrDefault().IdUzytkownik;
+
+                _db.Uzytkownik.Add(new Uzytkownik
+                {
+                    IdUzytkownik = lastUserId + 1,
+                    Email = nowyUzytkownik.Email,
+                    Haslo = nowyUzytkownik.Haslo,
+                    Imie = nowyUzytkownik.Imie,
+                    Nazwisko = nowyUzytkownik.Nazwisko,
+                    Admin = false
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
+            return Json("User added");
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpGet("[action]")]
-        public JsonResult ZmienProfil(
-            )
+        [Authorize(Roles = "Uzytkownik,Admin")]
+        [HttpPost("[action]")]
+        public JsonResult ZmienProfil([FromBody]Uzytkownik uzytkownik)
         {
-            return Json("");
+            int userId;
+            int.TryParse(this.User.Identity.Name, out userId);
+
+            var isAdmin = this.User.IsInRole("Admin");
+
+            try
+            {
+                _db.Uzytkownik.Update(new Uzytkownik
+                {
+                    IdUzytkownik = userId,
+                    Email = uzytkownik.Email,
+                    Haslo = uzytkownik.Haslo,
+                    Imie = uzytkownik.Imie,
+                    Nazwisko = uzytkownik.Nazwisko,
+                    Admin = isAdmin
+                });
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
+            return Json("User updated");
         }
+
+        [Authorize(Roles = "Uzytkownik,Admin")]
+        [HttpGet("[action]")]
+        public JsonResult ZmienProfil()
+        {
+            int userId;
+            int.TryParse(this.User.Identity.Name, out userId);
+
+            Uzytkownik response = null;
+
+            try
+            {
+                _db.Uzytkownik.Where(u => u.IdUzytkownik == userId).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
+            return Json(response);
+        }
+
     }
 }
