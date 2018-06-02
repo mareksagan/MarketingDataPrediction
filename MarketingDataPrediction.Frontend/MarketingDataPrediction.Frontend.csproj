@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\Admin\Zarzadzaj.tsx" />
-    <TypeScriptCompile Include="ClientApp\components\Shared\Dashboard.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\StatystykiSystemu.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Profil.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Zaloguj.tsx" />
