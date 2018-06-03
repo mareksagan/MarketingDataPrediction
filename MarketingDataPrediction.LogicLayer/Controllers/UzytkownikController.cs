@@ -86,16 +86,20 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         [HttpGet("[action]")]
         public JsonResult Statystyki()
         {
-            var result = new StatystykiBO()
-            {
-                SredniWiekKlienta = (int)_db.Klient.Average(k => k.Wiek),
-                SredniaDlugoscKontaktu = (int)_db.Klient.Average(k => k.Kampania.DlugoscKontaktu),
-                MiesiaceKontaktu = _db.Kampania.GroupBy(k => k.MiesiacKontaktu)
+            var sredniWiek = (int)_db.Klient.Average(k => k.Wiek);
+            var dlugoscKontaktu = (int)_db.Klient.Average(k => k.Kampania.DlugoscKontaktu);
+            var miesiaceKontaktu = _db.Kampania.GroupBy(k => k.MiesiacKontaktu)
                 .OrderBy(g => g.FirstOrDefault().MiesiacKontaktu).Select(c => new MiesiacKontaktBO
                 {
                     Miesiac = ((MiesiacEnum)c.FirstOrDefault().MiesiacKontaktu).ToString(),
                     IloscKontaktow = c.Count()
-                }).ToArray()
+                }).ToArray();
+
+            var result = new StatystykiBO()
+            {
+                SredniWiekKlienta = sredniWiek,
+                SredniaDlugoscKontaktu = dlugoscKontaktu,
+                MiesiaceKontaktu = miesiaceKontaktu
             };
 
             return Json(result);
@@ -167,7 +171,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
             try
             {
-                _db.Uzytkownik.Where(u => u.IdUzytkownik == userId).FirstOrDefault();
+                response = _db.Uzytkownik.Where(u => u.IdUzytkownik == userId).FirstOrDefault();
             }
             catch (Exception e)
             {
@@ -176,6 +180,5 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
             return Json(response);
         }
-
     }
 }

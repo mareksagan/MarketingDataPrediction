@@ -43,7 +43,7 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
         let contents = this.state.ladowanie
             ? <p><em>Ładowanie...</em></p>
             : UczenieMaszynowe.renderTable(this.state.rezultat);
-
+        {/*Redux for paging and datastore?*/}
         return <div>
             <reactCSV.CSVLink data={this.state.rezultat.dane} headers={this.state.naglowki}>Eksportuj wyniki</reactCSV.CSVLink>
             <h1>Wyniki uczenia</h1>

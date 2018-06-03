@@ -36,7 +36,7 @@ export class Statystyki extends React.Component<RouteComponentProps<{}>, {statys
     }
     
     public render() {
-        if (this.state.token == "")
+        if (this.state.token == '')
         {
             return <Redirect to='/zaloguj/'/>;
         }

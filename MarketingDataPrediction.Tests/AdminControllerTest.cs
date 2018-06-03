@@ -1,4 +1,5 @@
 ﻿using MarketingDataPrediction.DataLayer.Models;
+using MarketingDataPrediction.LogicLayer.BusinessObjects;
 using MarketingDataPrediction.LogicLayer.Controllers;
 using MarketingDataPrediction.Security;
 using Microsoft.EntityFrameworkCore;
@@ -51,25 +52,54 @@ namespace MarketingDataPrediction.Tests
         [Fact]
         public void CzyDodajeUzytkownika()
         {
+            var newUser = new AdminBO()
+            {
+                Email = "f@domena.pl",
+                Haslo = "haslo789",
+                Imie = "Nowy",
+                Nazwisko = "Uzytkownik",
+                Admin = true
+            };
 
+            var response = controller.DodajUzytkownika(newUser).Value.ToString();
+
+            Assert.Equal("User added", response);
         }
 
         [Fact]
         public void CzyEdytujeUzytkownika()
         {
+            var editedUser = new Uzytkownik()
+            {
+                IdUzytkownik = 666,
+                Email = "f@domena.pl",
+                Haslo = "haslo789",
+                Imie = "Nowy",
+                Nazwisko = "Uzytkownik",
+                Admin = false
+            };
 
+            var response = controller.EdytujUzytkownika(editedUser).Value.ToString();
+
+            Assert.Equal("User updated", response);
         }
 
         [Fact]
         public void CzyUsuwaUzytkownika()
         {
+            int userId = 2;
 
+            var response = controller.UsunUzytkownika(userId).Value.ToString();
+
+            Assert.Equal("User deleted", response);
         }
 
         [Fact]
         public void CzyZwracaStatystykiSystemu()
         {
+            var response = controller.StatystykiSystemu().Value.ToString();
 
+            Assert.NotEqual("", response);
         }
     }
 }

@@ -6,7 +6,7 @@ import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'r
 export class Zarejestruj extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
-
+            <h1>Zarejestruj się</h1>
             <Form>
                 <FormGroup>
                     <Label for="email">Email</Label>
@@ -37,12 +37,6 @@ export class Zarejestruj extends React.Component<RouteComponentProps<{}>, {}> {
                     <Input />
                     {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
                     <FormText>Podaj swoje nazwisko</FormText>
-                </FormGroup>
-                <FormGroup>
-                    <Label for="nrTelefonu">Numer telefonu</Label>
-                    <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Podaj swój numer telefonu</FormText>
                 </FormGroup>
                 <Button>Zarejestruj się</Button>
             </Form>

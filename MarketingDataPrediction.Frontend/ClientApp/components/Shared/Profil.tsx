@@ -6,13 +6,13 @@ import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'r
 export class Profil extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
-
+            <h1>Edytuj profil</h1>
             <Form>
                 <FormGroup>
                     <Label for="email">Email</Label>
                     <Input />
                     {/*<FormFeedback>Email jest dostępny</FormFeedback>*/}
-                    <FormText>Wprowadź email, który będzie służył jako nazwa użytkownika</FormText>
+                    <FormText>Wprowadź email</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="haslo">Hasło</Label>
@@ -21,14 +21,8 @@ export class Profil extends React.Component<RouteComponentProps<{}>, {}> {
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="powtorzHaslo">Powtórz hasło</Label>
-                    <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Potwórz hasło</FormText>
-                </FormGroup>
-                <FormGroup>
                     <Label for="imie">Imię</Label>
-                    <Input /> {/* <Input valid/> <Input invalid /> */}
+                    <Input value='a' /> {/* <Input valid/> <Input invalid /> */}
                     {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
                     <FormText>Podaj swoje imię</FormText>
                 </FormGroup>
@@ -38,13 +32,7 @@ export class Profil extends React.Component<RouteComponentProps<{}>, {}> {
                     {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
                     <FormText>Podaj swoje nazwisko</FormText>
                 </FormGroup>
-                <FormGroup>
-                    <Label for="nrTelefonu">Numer telefonu</Label>
-                    <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Podaj swój numer telefonu</FormText>
-                </FormGroup>
-                <Button>Zarejestruj się</Button>
+                <Button>Edytuj profil</Button>
             </Form>
 
         </div>;

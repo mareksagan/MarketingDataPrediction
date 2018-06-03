@@ -28,6 +28,7 @@
     <None Remove="ClientApp\components\Admin\StatystykiSystemu.tsx" />
     <None Remove="ClientApp\components\Admin\Zarzadzaj.tsx" />
     <None Remove="ClientApp\components\DodajAdmin.tsx" />
+    <None Remove="ClientApp\components\Shared\Wyloguj.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\Statystyki.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\UczenieMaszynowe.tsx" />
     <None Remove="ClientApp\components\Uzytkownik\ZalogujUzytkownika.tsx" />
@@ -38,6 +39,7 @@
     <TypeScriptCompile Include="ClientApp\components\Admin\Zarzadzaj.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Admin\StatystykiSystemu.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Profil.tsx" />
+    <TypeScriptCompile Include="ClientApp\components\Shared\Wyloguj.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Shared\Zaloguj.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\Zarejestruj.tsx" />
     <TypeScriptCompile Include="ClientApp\components\Uzytkownik\Statystyki.tsx" />

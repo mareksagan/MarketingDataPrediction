@@ -56,13 +56,13 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public JsonResult EdytujUzytkownika([FromBody]int userId, AdminBO updateUser)
+        public JsonResult EdytujUzytkownika([FromBody]Uzytkownik updateUser)
         {
             try
             {
                 _db.Uzytkownik.Update(new Uzytkownik
                 {
-                    IdUzytkownik = userId,
+                    IdUzytkownik = updateUser.IdUzytkownik,
                     Email = updateUser.Email,
                     Haslo = updateUser.Haslo,
                     Imie = updateUser.Imie,
@@ -116,15 +116,31 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         [Authorize(Roles = "Admin")]
         public JsonResult StatystykiSystemu()
         {
-            StatystykiSystemuBO result = null;
+            IloscUzytkownikowBO[] result = null;
 
             try
             {
-                result = new StatystykiSystemuBO
+                var iloscKlientow = _db.Klient.Count();
+                var iloscAdminow = _db.Uzytkownik.Where(u => u.Admin == true).Count();
+                var iloscUzytkownikow = _db.Uzytkownik.Where(u => u.Admin == false).Count();
+
+                result = new IloscUzytkownikowBO[]
                 {
-                    IloscKlientow = _db.Klient.Count(),
-                    IloscAdminow = _db.Uzytkownik.Where(u => u.Admin == true).Count(),
-                    IloscUzytkownikow = _db.Uzytkownik.Where(u => u.Admin == false).Count()
+                    new IloscUzytkownikowBO()
+                    {
+                        RodzajUzytkownika = "Klienci",
+                        IloscUzytkownikow = iloscKlientow
+                    },
+                    new IloscUzytkownikowBO()
+                    {
+                        RodzajUzytkownika = "Admini",
+                        IloscUzytkownikow = iloscAdminow
+                    },
+                    new IloscUzytkownikowBO()
+                    {
+                        RodzajUzytkownika = "Uzytkownicy",
+                        IloscUzytkownikow = iloscUzytkownikow
+                    }
                 };
             }
             catch(Exception e)

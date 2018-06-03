@@ -4,26 +4,11 @@ import { BarChart, Bar, Legend, XAxis, YAxis} from 'recharts';
 import { RouteComponentProps } from "react-router";
 import Axios from "axios";
 
-const data = [
-    {
-        name: "Klienci",
-        value: 41188
-    },
-    {
-        name: "Uzytkownicy",
-        value: 1
-    },
-    {
-        name: "Admini",
-        value: 1
-    }
-];
-
-export class StatystykiSystemu extends React.Component<RouteComponentProps<{}>, {}> {
+export class StatystykiSystemu extends React.Component<RouteComponentProps<{}>, { statystyki: iloscUzytkownikow[] }> {
     constructor() {
         super();
 
-        this.state = { statystyki: {}};
+        this.state = { statystyki: [] };
 
         var token = sessionStorage.getItem('token');
 
@@ -31,7 +16,7 @@ export class StatystykiSystemu extends React.Component<RouteComponentProps<{}>, 
 
         debugger;
 
-        Axios.get("https://localhost:44319/uzytkownik/Statystyki",
+        Axios.get("https://localhost:44319/admin/StatystykiSystemu",
         { headers: {'Authorization':  'Bearer ' + token} })
         .then(function (response)
         {
@@ -51,13 +36,18 @@ export class StatystykiSystemu extends React.Component<RouteComponentProps<{}>, 
     public render() {
         return <div>
             <h1>Użytkownicy i klienci w systemie</h1>
-            <BarChart width={700} height={300} data={data}
+            <BarChart width={700} height={300} data={this.state.statystyki}
             margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-            <XAxis dataKey="name"/>
+            <XAxis dataKey="rodzajUzytkownika"/>
             <YAxis/>
             <Legend />
-            <Bar name='Ilość kontaktów w danym miesiącu' dataKey="value" fill="#8884d8" />
+            <Bar name='Ilość użytkowników' dataKey="iloscUzytkownikow" fill="#8884d8" />
             </BarChart>
         </div>
     }
+}
+
+interface iloscUzytkownikow {
+    rodzajUzytkownika: string;
+    iloscUzytkownikow: number;
 }

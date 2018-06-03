@@ -2,11 +2,37 @@
 import * as ReactDOM from "react-dom";
 import { RouteComponentProps } from 'react-router';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import 'font-awesome/css/font-awesome.css';
 
 export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
+            <h1>Zarządzaj użytkownikami</h1>
+            <table className='table'>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Zarządzaj</th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                    <tr>
+                        <td>4</td>
+                        <td>m@mail.pl</td>
+                        <td>Marian</td>
+                        <td>Jakiś</td>
+                        <td><span className='fa fa-minus'></span> <span className='fa fa-id-card'></span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br />
+
+            <h1>Dodaj/edytuj użytkownika</h1>
             <Form>
                 <FormGroup>
                     <Label for="email">Email</Label>
@@ -21,12 +47,6 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="powtorzHaslo">Powtórz hasło</Label>
-                    <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Potwórz hasło</FormText>
-                </FormGroup>
-                <FormGroup>
                     <Label for="imie">Imię</Label>
                     <Input /> {/* <Input valid/> <Input invalid /> */}
                     {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
@@ -38,13 +58,12 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
                     {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
                     <FormText>Podaj swoje nazwisko</FormText>
                 </FormGroup>
-                <FormGroup>
-                    <Label for="nrTelefonu">Numer telefonu</Label>
-                    <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Podaj swój numer telefonu</FormText>
+                <FormGroup check>
+                    <Label check>Jest adminem?
+                    <Input type="checkbox" />{' '}</Label>
+                    <FormText>Zmień rolę użytkownika w systemie</FormText>
                 </FormGroup>
-                <Button>Zarejestruj się</Button>
+                <Button>Wyślij</Button>
             </Form>
 
         </div>;
