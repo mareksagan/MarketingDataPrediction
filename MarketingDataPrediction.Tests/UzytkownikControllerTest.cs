@@ -27,9 +27,9 @@ namespace MarketingDataPrediction.Tests
         {
             IQueryable<Uzytkownik> daneUzytkownik = new List<Uzytkownik>
             {
-                new Uzytkownik { IdUzytkownik = 1, Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "a@a.pl", Haslo = "haslo", Admin = true},
-                new Uzytkownik { IdUzytkownik = 2, Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "b@a.pl", Haslo = "haslo", Admin = false},
-                new Uzytkownik { IdUzytkownik = 3, Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "c@a.pl", Haslo = "haslo", Admin = false}
+                new Uzytkownik { IdUzytkownik = Guid.Parse("2f15b775-a345-4445-b91b-c4cb965c12b8"), Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "a@a.pl", Haslo = "haslo", Admin = true},
+                new Uzytkownik { IdUzytkownik = Guid.Parse("3726ab5d-89bf-45ac-a3cc-191dbd200274"), Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "b@a.pl", Haslo = "haslo", Admin = false},
+                new Uzytkownik { IdUzytkownik = Guid.Parse("f6c5b1a5-4516-4d77-ade0-c483bcbb9466"), Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "c@a.pl", Haslo = "haslo", Admin = false}
             }.AsQueryable();
 
             var guid1 = Guid.NewGuid();
@@ -106,14 +106,14 @@ namespace MarketingDataPrediction.Tests
 
             var response = controller.Zarejestruj(newUser).Value.ToString();
 
-            Assert.Equal("User added", response);
+            Assert.Equal("Dodano użytkownika", response);
         }
 
         [Fact]
         public void CzyZmieniaProfil()
         {
             var user = new ClaimsPrincipal();
-            var identity = new GenericIdentity("2", "Login");
+            var identity = new GenericIdentity("f6c5b1a5-4516-4d77-ade0-c483bcbb9466", "Login");
 
             user.AddIdentity(identity);
 
@@ -127,7 +127,7 @@ namespace MarketingDataPrediction.Tests
 
             var editedUser = new Uzytkownik()
             {
-                IdUzytkownik = 666,
+                IdUzytkownik = Guid.NewGuid(),
                 Email = "f@domena.pl",
                 Haslo = "haslo789",
                 Imie = "Nowy",
@@ -137,7 +137,7 @@ namespace MarketingDataPrediction.Tests
 
             var response = controller.ZmienProfil(editedUser).Value.ToString();
 
-            Assert.Equal("User updated", response);
+            Assert.Equal("Zmodyfikowano użytkownika", response);
         }
     }
 }

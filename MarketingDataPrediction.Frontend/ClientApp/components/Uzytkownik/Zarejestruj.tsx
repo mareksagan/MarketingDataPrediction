@@ -17,19 +17,16 @@ export class Zarejestruj extends React.Component<RouteComponentProps<{}>, {}> {
                 <FormGroup>
                     <Label for="haslo">Hasło</Label>
                     <Input />
-                    {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="powtorzHaslo">Powtórz hasło</Label>
                     <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
                     <FormText>Powtórz hasło</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="imie">Imię</Label>
-                    <Input /> {/* <Input valid/> <Input invalid /> */}
-                    {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
+                    <Input />
                     <FormText>Podaj swoje imię</FormText>
                 </FormGroup>
                 <FormGroup>

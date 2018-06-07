@@ -69,6 +69,10 @@ namespace MarketingDataPrediction.DataLayer.Models
             {
                 entity.HasKey(e => e.IdUzytkownik);
 
+                entity.HasIndex(e => e.Email)
+                    .HasName("UNIQ_Email")
+                    .IsUnique();
+
                 entity.Property(e => e.IdUzytkownik).ValueGeneratedNever();
 
                 entity.Property(e => e.Email)

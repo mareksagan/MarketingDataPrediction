@@ -33,7 +33,7 @@ export class NavMenu extends React.Component<{}, {role: string}> {
                 </div>
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
-                    <NavLinks role={'Uzytkownik'}/>
+                    <NavLinks role={'Uzytkownidfk'}/>
                 </div>
             </div>
         </div>;

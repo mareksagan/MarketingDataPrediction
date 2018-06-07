@@ -33,7 +33,6 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         public JsonResult UczenieMaszynowe()
         {
             var response = from k in _db.Klient
-                           where k.Wiek > 56
                            select new string[]
                            {
                                k.Wiek.ToString(),
@@ -61,7 +60,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
             string[] nazwyKolumn =
             {
-                "Wiek", "Wyksztalcenie", "Kredyt", "Hipoteka", "Stanowisko",
+                "Wiek", "Wyksztalcenie", "MaKredyt", "Hipoteka", "Stanowisko",
                 "StatusMatrymonialny", "KredytKonsumencki", "Cci", "Cev", "Cpi",
                 "Euribor3m", "IloscPracownikow", "DlugoscKontaktu", "DzienKontaktu", "MiesiacKontaktu",
                 "RodzajKontaktu", "IloscDni", "IloscProb", "IloscProbAkt", "PoprzedniRezultat", "Wynik"
@@ -111,11 +110,9 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         {
             try
             {
-                var lastUserId = _db.Uzytkownik.OrderByDescending(u => u.IdUzytkownik).FirstOrDefault().IdUzytkownik;
-
                 _db.Uzytkownik.Add(new Uzytkownik
                 {
-                    IdUzytkownik = lastUserId + 1,
+                    IdUzytkownik = Guid.NewGuid(),
                     Email = nowyUzytkownik.Email,
                     Haslo = nowyUzytkownik.Haslo,
                     Imie = nowyUzytkownik.Imie,
@@ -128,15 +125,15 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 return Json(e.Message);
             }
 
-            return Json("User added");
+            return Json("Dodano użytkownika");
         }
 
         [Authorize(Roles = "Uzytkownik,Admin")]
         [HttpPost("[action]")]
         public JsonResult ZmienProfil([FromBody]Uzytkownik uzytkownik)
         {
-            int userId;
-            int.TryParse(this.User.Identity.Name, out userId);
+            Guid userId;
+            Guid.TryParse(this.User.Identity.Name, out userId);
 
             var isAdmin = this.User.IsInRole("Admin");
 
@@ -157,21 +154,21 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 return Json(e.Message);
             }
 
-            return Json("User updated");
+            return Json("Zmodyfikowano użytkownika");
         }
 
         [Authorize(Roles = "Uzytkownik,Admin")]
         [HttpGet("[action]")]
         public JsonResult ZmienProfil()
         {
-            int userId;
-            int.TryParse(this.User.Identity.Name, out userId);
+            Guid userId;
+            Guid.TryParse(this.User.Identity.Name, out userId);
 
             Uzytkownik response = null;
 
             try
             {
-                response = _db.Uzytkownik.Where(u => u.IdUzytkownik == userId).FirstOrDefault();
+                response = _db.Uzytkownik.Where(u => u.IdUzytkownik.Equals(userId)).FirstOrDefault();
             }
             catch (Exception e)
             {

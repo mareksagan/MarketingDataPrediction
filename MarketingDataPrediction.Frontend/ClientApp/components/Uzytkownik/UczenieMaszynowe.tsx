@@ -13,7 +13,7 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
     constructor() {
         super();
 
-        this.state = { rezultat: {dane: [], wyniki: [], blad: 0} as UczenieBO, naglowki: ["Wiek", "Wyksztalcenie", "Kredyt", "Hipoteka", "Stanowisko",
+        this.state = { rezultat: {dane: [], wyniki: [], blad: 0} as UczenieBO, naglowki: ["Wiek", "Wyksztalcenie", "MaKredyt", "Hipoteka", "Stanowisko",
         "StatusMatrymonialny", "KredytKonsumencki", "Cci", "Cev", "Cpi",
         "Euribor3m", "IloscPracownikow", "DlugoscKontaktu", "DzienKontaktu", "MiesiacKontaktu",
         "RodzajKontaktu", "IloscDni", "IloscProb", "IloscProbAkt", "PoprzedniRezultat", "Wynik"], ladowanie: false };
@@ -43,7 +43,6 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
         let contents = this.state.ladowanie
             ? <p><em>Ładowanie...</em></p>
             : UczenieMaszynowe.renderTable(this.state.rezultat);
-        {/*Redux for paging and datastore?*/}
         return <div>
             <reactCSV.CSVLink data={this.state.rezultat.dane} headers={this.state.naglowki}>Eksportuj wyniki</reactCSV.CSVLink>
             <h1>Wyniki uczenia</h1>
@@ -105,6 +104,7 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
                         <td>{klient[18]}</td>
                         <td>{klient[19]}</td>
                         <td>{klient[20]}</td>
+                        {/*Wyświetl wynik!*/}
                     </tr>
                 )}
             </tbody>

@@ -22,7 +22,7 @@ export class Profil extends React.Component<RouteComponentProps<{}>, {}> {
                 </FormGroup>
                 <FormGroup>
                     <Label for="imie">Imię</Label>
-                    <Input value='a' /> {/* <Input valid/> <Input invalid /> */}
+                    <Input /> {/* <Input valid/> <Input invalid /> */}
                     {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
                     <FormText>Podaj swoje imię</FormText>
                 </FormGroup>

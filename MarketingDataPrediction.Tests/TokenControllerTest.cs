@@ -23,9 +23,9 @@ namespace MarketingDataPrediction.Tests
         {
             IQueryable<Uzytkownik> dane = new List<Uzytkownik>
             {
-                new Uzytkownik { IdUzytkownik = 1, Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "a@a.pl", Haslo = "haslo", Admin = true},
-                new Uzytkownik { IdUzytkownik = 2, Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "b@a.pl", Haslo = "haslo", Admin = false},
-                new Uzytkownik { IdUzytkownik = 3, Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "c@a.pl", Haslo = "haslo", Admin = false}
+                new Uzytkownik { IdUzytkownik = Guid.Parse("2f15b775-a345-4445-b91b-c4cb965c12b8"), Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "a@a.pl", Haslo = "haslo", Admin = true},
+                new Uzytkownik { IdUzytkownik = Guid.Parse("3726ab5d-89bf-45ac-a3cc-191dbd200274"), Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "b@a.pl", Haslo = "haslo", Admin = false},
+                new Uzytkownik { IdUzytkownik = Guid.Parse("f6c5b1a5-4516-4d77-ade0-c483bcbb9466"), Imie = "PrzykladoweImie", Nazwisko = "PrzykladoweNazwisko", Email = "c@a.pl", Haslo = "haslo", Admin = false}
             }.AsQueryable();
 
             var mockSet = Substitute.For<DbSet<Uzytkownik>, IQueryable<Uzytkownik>>();

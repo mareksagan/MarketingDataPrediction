@@ -70,4 +70,5 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
     }
 }
 
-{/*Pass a whole Uzytkownik table with their non-sensitive data and display it in a table*/}
+{/*Pass a whole Uzytkownik table with their non-sensitive data and display it in a table
+ Finish forms with axios*/}

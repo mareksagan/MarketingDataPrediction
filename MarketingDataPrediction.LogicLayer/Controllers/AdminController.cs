@@ -34,11 +34,9 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
         {
             try
             {
-                var lastUserId = _db.Uzytkownik.OrderByDescending(u => u.IdUzytkownik).FirstOrDefault().IdUzytkownik;
-
                 _db.Uzytkownik.Add(new Uzytkownik
                 {
-                    IdUzytkownik = lastUserId + 1,
+                    IdUzytkownik = Guid.NewGuid(),
                     Email = newUser.Email,
                     Haslo = newUser.Haslo,
                     Imie = newUser.Imie,
@@ -51,7 +49,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 return Json(e.Message);
             }
 
-            return Json("User added");
+            return Json("Dodano użytkownika");
         }
 
         [HttpPost("[action]")]
@@ -75,7 +73,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 return Json(e.Message);
             }
 
-            return Json("User updated");
+            return Json("Zmodyfikowano użytkownika");
         }
 
         [HttpGet("[action]")]
@@ -98,18 +96,18 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public JsonResult UsunUzytkownika([FromBody] int idUzytkownika)
+        public JsonResult UsunUzytkownika([FromBody] Guid idUzytkownika)
         {
             try
             {
-                var userToRemove = _db.Uzytkownik.Where(u => u.IdUzytkownik == idUzytkownika).FirstOrDefault();
+                var userToRemove = _db.Uzytkownik.Where(u => u.IdUzytkownik.Equals(idUzytkownika)).FirstOrDefault();
                 _db.Uzytkownik.Remove(userToRemove);
             }
             catch(Exception e)
             {
                 return Json(e.Message);
             }
-            return Json("User deleted");
+            return Json("Usunięto użytkownika");
         }
 
         [HttpGet("[action]")]

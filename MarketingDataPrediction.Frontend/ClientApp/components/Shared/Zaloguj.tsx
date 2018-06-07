@@ -52,7 +52,7 @@ export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
                 <Button onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
-            </Form> */}
+            </Form>*/}
 
             <Button onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
 

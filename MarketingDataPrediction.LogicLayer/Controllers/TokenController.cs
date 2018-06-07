@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
@@ -68,9 +68,9 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                         new TokenBO
                         {
                             Authenticated = false,
-                            Created = "",
-                            Expiration = "",
-                            AccessToken = "",
+                            Created = null,
+                            Expiration = null,
+                            AccessToken = null,
                             Message = e.Message.ToString()
                         }
                     );
@@ -90,10 +90,10 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 odpowiedz = new TokenBO
                 {
                     Authenticated = false,
-                    Created = "",
-                    Expiration = "",
-                    AccessToken = "",
-                    Message = "Failed to authenticate"
+                    Created = null,
+                    Expiration = null,
+                    AccessToken = null,
+                    Message = "Błąd autentykacji"
                 };
             }
 
@@ -129,10 +129,6 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                 Expires = expiration
             });
             return handler.WriteToken(securityToken);
-        }
-
-        public void Dispose()
-        {
         }
     }
 }
