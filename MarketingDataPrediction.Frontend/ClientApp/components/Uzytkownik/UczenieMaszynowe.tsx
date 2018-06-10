@@ -22,14 +22,13 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
 
         var self = this;
 
-        debugger;
-
         Axios.get("https://localhost:44319/uzytkownik/UczenieMaszynowe",
         { headers: {'Authorization':  'Bearer ' + token} })
         .then(function (response)
         {
-            debugger;
             var tmpResponse = response.data as UczenieBO;
+
+            console.log('Przybliżony błąd: ' + tmpResponse.blad);
 
             self.setState({rezultat: tmpResponse});
         })
@@ -38,14 +37,15 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
             console.log(error);
         });
     }
-
+    
     public render() {
         let contents = this.state.ladowanie
             ? <p><em>Ładowanie...</em></p>
             : UczenieMaszynowe.renderTable(this.state.rezultat);
         return <div>
-            <reactCSV.CSVLink data={this.state.rezultat.dane} headers={this.state.naglowki}>Eksportuj wyniki</reactCSV.CSVLink>
             <h1>Wyniki uczenia</h1>
+            <br/>
+            <reactCSV.CSVLink filename="wynikiUczenia.csv" data={this.state.rezultat.dane} headers={this.state.naglowki}>Eksportuj wyniki</reactCSV.CSVLink>
             {contents}
         </div>;
     }
@@ -81,7 +81,7 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
                 </tr>
             </thead>
             <tbody>
-                {rezultat.dane.map(klient =>
+                {rezultat.dane.map((klient,index) =>
                     <tr>
                         <td>{klient[0]}</td>
                         <td>{klient[1]}</td>
@@ -103,8 +103,7 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
                         <td>{klient[17]}</td>
                         <td>{klient[18]}</td>
                         <td>{klient[19]}</td>
-                        <td>{klient[20]}</td>
-                        {/*Wyświetl wynik!*/}
+                        <td>{rezultat.wyniki[index]}</td>
                     </tr>
                 )}
             </tbody>
@@ -114,6 +113,6 @@ export class UczenieMaszynowe extends React.Component<RouteComponentProps<{}>, S
 
 interface UczenieBO {
     dane: string[][];
-    wyniki: number[];
+    wyniki: string[];
     blad: number;
 }

@@ -8,7 +8,7 @@ namespace MarketingDataPrediction.LogicLayer.BusinessObjects
     public class KlientUczenieBO
     {
         public string[][] Dane { get; set; }
-        public int[] Wyniki { get; set; }
+        public string[] Wyniki { get; set; }
         public double Blad { get; set; }
     }
 }

@@ -1,22 +1,30 @@
 ﻿import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, RouteComponentProps } from 'react-router-dom';
 var jwtDecode = require('jwt-decode') as any;
 import 'font-awesome/css/font-awesome.css';
 var fontAwesome = require('react-fontawesome');
 
-export class NavMenu extends React.Component<{}, {role: string}> {
+export class NavMenu extends React.Component<{}, {}> {
+
+    role: string;
+
     constructor() {
         super();
 
-        var token = sessionStorage.getItem('token');
-
-        this.state = {role: ""};
+        this.role = '';
 
         try {
-            this.setState({role: (jwtDecode(token) as DecodedToken).role});   
-        } catch (error) {
+            var token = sessionStorage.getItem('token');
+
+            console.log('Rola: ' + String((jwtDecode(token) as DecodedToken).role));
+
+            var decodedRole = String((jwtDecode(token) as DecodedToken).role);
+
+            this.role = decodedRole;
+        }
+        catch (error) {
             console.log(error);
-        }    
+        }
     }
 
     public render() {
@@ -33,7 +41,7 @@ export class NavMenu extends React.Component<{}, {role: string}> {
                 </div>
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
-                    <NavLinks role={'Uzytkownidfk'}/>
+                    <NavLinks role={this.role}/>
                 </div>
             </div>
         </div>;

@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 import Axios from 'axios';
 import 'font-awesome/css/font-awesome.css';
 
-export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
+export class Zaloguj extends React.Component<RouteComponentProps<{}>, { email: string, pass: string }> {
     constructor() {
         super();
+
+        this.state = { email: '', pass: '' };
+
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangePass = this.handleChangePass.bind(this);
     }
 
     public handleSubmit(e : React.MouseEvent<any>) {
@@ -18,8 +23,8 @@ export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
         var self = this;
 
         var bodyFormData = new FormData();
-        bodyFormData.set('Email', 'b@domena.pl');
-        bodyFormData.set('Haslo', 'haslo123');
+        bodyFormData.set('Email', this.state.email);
+        bodyFormData.set('Haslo', this.state.pass);
 
         Axios.post("https://localhost:44319/token", bodyFormData,
         { headers: {'Content-Type': 'application/x-www-form-urlencoded' }})
@@ -27,7 +32,6 @@ export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
         {
             var tmpTokenResponse = response.data as TokenResponse;
             sessionStorage.setItem('token', tmpTokenResponse.accessToken);
-            debugger;
             console.log("Authenticated: " + String(tmpTokenResponse.authenticated));
             window.location.reload();
         })
@@ -37,24 +41,34 @@ export class Zaloguj extends React.Component<RouteComponentProps<{}>, {}> {
         });
     }
 
+    public handleChangeEmail(e: React.ChangeEvent<any>) {
+        e.preventDefault();
+
+        this.setState({ email: e.target.value });
+    }
+
+    public handleChangePass(e: React.ChangeEvent<any>) {
+        e.preventDefault();
+
+        this.setState({ pass: e.target.value });
+    }
+
     public render() {
         return <div>
-            {/* <Form>
-                <Label for='Zaloguj'>Zaloguj</Label>
+            <h1>Logowanie</h1>
+            <Form>
                 <FormGroup>
-                    
-                    <Input placeholder="Email"/>
-                    <FormFeedback>Email jest dostępny</FormFeedback>
+                    <Label for="email">Email</Label>
+                    <Input type="email" onChange={(e) => this.handleChangeEmail(e)} placeholder="Email" />
                     <FormText>Wprowadź email</FormText>
                 </FormGroup>
                 <FormGroup>
-                    <Input placeholder='Hasło'/>
+                    <Label for="haslo">Hasło</Label>
+                    <Input type="password" onChange={(e) => this.handleChangePass(e)} placeholder='Hasło' />
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
-                <Button onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
-            </Form>*/}
-
-            <Button onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
+                <Button type="button" onClick={(e) => this.handleSubmit(e)}>Zaloguj</Button>
+            </Form>
 
             <br/>
 

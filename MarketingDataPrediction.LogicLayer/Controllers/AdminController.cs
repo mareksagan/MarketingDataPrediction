@@ -30,7 +30,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public JsonResult DodajUzytkownika([FromBody]AdminBO newUser)
+        public JsonResult DodajUzytkownika([FromForm]AdminBO newUser)
         {
             try
             {
@@ -43,6 +43,8 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                     Nazwisko = newUser.Nazwisko,
                     Admin = newUser.Admin
                 });
+
+                _db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -54,7 +56,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public JsonResult EdytujUzytkownika([FromBody]Uzytkownik updateUser)
+        public JsonResult EdytujUzytkownika([FromForm]Uzytkownik updateUser)
         {
             try
             {
@@ -67,6 +69,8 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                     Nazwisko = updateUser.Nazwisko,
                     Admin = updateUser.Admin
                 });
+
+                _db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -96,17 +100,20 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public JsonResult UsunUzytkownika([FromBody] Guid idUzytkownika)
+        public JsonResult UsunUzytkownika([FromForm] Guid idUzytkownika)
         {
             try
             {
                 var userToRemove = _db.Uzytkownik.Where(u => u.IdUzytkownik.Equals(idUzytkownika)).FirstOrDefault();
                 _db.Uzytkownik.Remove(userToRemove);
+
+                _db.SaveChanges();
             }
             catch(Exception e)
             {
                 return Json(e.Message);
             }
+
             return Json("Usunięto użytkownika");
         }
 

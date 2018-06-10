@@ -3,8 +3,42 @@ import * as ReactDOM from "react-dom";
 import { RouteComponentProps } from 'react-router';
 import { Button, Form, FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
 import 'font-awesome/css/font-awesome.css';
+import Axios from "axios";
 
-export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
+export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, { users: Uzytkownik[], ladowanie: boolean }> {
+    constructor() {
+        super();
+
+        this.state = { users: [] as Uzytkownik[], ladowanie: false };
+
+        var token = sessionStorage.getItem('token');
+
+        var self = this;
+
+        // Axios.get("https://localhost:44319/admin/EdytujUzytkownika",
+        // { headers: {'Authorization':  'Bearer ' + token} })
+        // .then(function (response)
+        // {
+        //     var tmpResponse = response.data as UczenieBO;
+
+        //     console.log('Przybliżony błąd: ' + tmpResponse.blad);
+
+        //     self.setState({rezultat: tmpResponse});
+        // })
+        // .catch(function (error)
+        // {
+        //     console.log(error);
+        // });
+    }
+
+    public usunUzytkownika(){
+
+    }
+
+    public edytujUzytkownika(){
+
+    }
+    
     public render() {
         return <div>
             <h1>Zarządzaj użytkownikami</h1>
@@ -37,26 +71,22 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
                 <FormGroup>
                     <Label for="email">Email</Label>
                     <Input />
-                    {/*<FormFeedback>Email jest dostępny</FormFeedback>*/}
                     <FormText>Wprowadź email, który będzie służył jako nazwa użytkownika</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="haslo">Hasło</Label>
                     <Input />
-                    {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
                     <FormText>Wprowadź hasło do konta</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="imie">Imię</Label>
-                    <Input /> {/* <Input valid/> <Input invalid /> */}
-                    {/*<FormFeedback valid>Sweet! that name is available</FormFeedback>*/}
-                    <FormText>Podaj swoje imię</FormText>
+                    <Input />
+                    <FormText>Podaj imię</FormText>
                 </FormGroup>
                 <FormGroup>
                     <Label for="nazwisko">Nazwisko</Label>
                     <Input />
-                    {/*<FormFeedback>Oh noes! that name is already taken</FormFeedback>*/}
-                    <FormText>Podaj swoje nazwisko</FormText>
+                    <FormText>Podaj nazwisko</FormText>
                 </FormGroup>
                 <FormGroup check>
                     <Label check>Jest adminem?
@@ -70,5 +100,11 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, {}> {
     }
 }
 
-{/*Pass a whole Uzytkownik table with their non-sensitive data and display it in a table
- Finish forms with axios*/}
+interface Uzytkownik {
+    id: string;
+    email: string;
+    haslo: string;
+    imie: string;
+    nazwisko: string;
+    admin: boolean;
+}

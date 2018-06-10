@@ -1,13 +1,13 @@
 ﻿using Accord.Math;
-using MarketingDataPrediction.DataLayer.Enums;
+using MarketingDataPrediction.LogicLayer.Enums;
 using MarketingDataPrediction.DataLayer.Models;
 using MarketingDataPrediction.LogicLayer.BusinessObjects;
-using MarketingDataPrediction.LogicLayer.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.ComponentModel;
 
 namespace MarketingDataPrediction.LogicLayer.Controllers
 {
@@ -48,13 +48,13 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                                k.WskazSocEkon.Euribor3m.ToString(),
                                k.WskazSocEkon.IloscPrac.ToString(),
                                k.Kampania.DlugoscKontaktu.ToString(),
-                               k.Kampania.DzienKontaktu.ToString(),
-                               k.Kampania.MiesiacKontaktu.ToString(),
-                               k.Kampania.RodzajKontaktu.ToString(),
+                               ((DzienTygodniaEnum)k.Kampania.DzienKontaktu).ToString(),
+                               ((MiesiacEnum)k.Kampania.MiesiacKontaktu).ToString(),
+                               ((RodzajKontaktuEnum)k.Kampania.RodzajKontaktu).ToString(),
                                k.Inne.IloscDni.ToString(),
                                k.Inne.IloscProb.ToString(),
                                k.Inne.IloscProbAkt.ToString(),
-                               k.Inne.PopRezultat.ToString(),
+                               ((RezultatEnum)k.Inne.PopRezultat).ToString(),
                                ((RezultatEnum)k.Wynik.Rezultat).ToString()
                            };
 
@@ -71,11 +71,14 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             var rfh = new RandomForestHelper(0.75);
             rfh.Uczenie(nazwyKolumn, dane);
 
+            var wyniki = rfh.ZwrocWyniki().Select(w => ((RezultatEnum)w).ToString()).ToArray();
+            var blad = rfh.PoliczBlad();
+
             var actionResult = new KlientUczenieBO
             {
                 Dane = dane,
-                Wyniki = rfh.ZwrocWyniki(),
-                Blad = rfh.PoliczBlad()
+                Wyniki = wyniki,
+                Blad = blad
             };
 
             return Json(actionResult);
@@ -90,7 +93,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             var miesiaceKontaktu = _db.Kampania.GroupBy(k => k.MiesiacKontaktu)
                 .OrderBy(g => g.FirstOrDefault().MiesiacKontaktu).Select(c => new MiesiacKontaktBO
                 {
-                    Miesiac = ((MiesiacEnum)c.FirstOrDefault().MiesiacKontaktu).ToString(),
+                    Miesiac = ((MiesiacEnum)c.FirstOrDefault().MiesiacKontaktu).GetAttributeOfType<DescriptionAttribute>().Description,
                     IloscKontaktow = c.Count()
                 }).ToArray();
 
@@ -104,9 +107,9 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             return Json(result);
         }
 
-        [Authorize(Roles = "Uzytkownik")]
+        [AllowAnonymous]
         [HttpPost("[action]")]
-        public JsonResult Zarejestruj([FromBody]UzytkownikBO nowyUzytkownik)
+        public JsonResult Zarejestruj([FromForm]UzytkownikBO nowyUzytkownik)
         {
             try
             {
@@ -119,6 +122,8 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                     Nazwisko = nowyUzytkownik.Nazwisko,
                     Admin = false
                 });
+
+                _db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -130,7 +135,7 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
 
         [Authorize(Roles = "Uzytkownik,Admin")]
         [HttpPost("[action]")]
-        public JsonResult ZmienProfil([FromBody]Uzytkownik uzytkownik)
+        public JsonResult ZmienProfil([FromForm]UzytkownikBO uzytkownik)
         {
             Guid userId;
             Guid.TryParse(this.User.Identity.Name, out userId);
@@ -148,6 +153,8 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
                     Nazwisko = uzytkownik.Nazwisko,
                     Admin = isAdmin
                 });
+
+                _db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -164,11 +171,19 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             Guid userId;
             Guid.TryParse(this.User.Identity.Name, out userId);
 
-            Uzytkownik response = null;
+            UzytkownikBO response = null;
 
             try
             {
-                response = _db.Uzytkownik.Where(u => u.IdUzytkownik.Equals(userId)).FirstOrDefault();
+                var user = _db.Uzytkownik.Where(u => u.IdUzytkownik.Equals(userId)).FirstOrDefault();
+
+                response = new UzytkownikBO()
+                {
+                    Email = user.Email,
+                    Haslo = user.Haslo,
+                    Imie = user.Imie,
+                    Nazwisko = user.Nazwisko
+                };
             }
             catch (Exception e)
             {

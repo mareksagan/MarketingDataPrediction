@@ -1,6 +1,6 @@
 ﻿using MarketingDataPrediction.DataLayer.Models;
 using MarketingDataPrediction.LogicLayer.Controllers;
-using MarketingDataPrediction.LogicLayer.ViewModels;
+using MarketingDataPrediction.LogicLayer.BusinessObjects;
 using MarketingDataPrediction.Security;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -125,14 +125,12 @@ namespace MarketingDataPrediction.Tests
                 HttpContext = httpContext
             };
 
-            var editedUser = new Uzytkownik()
+            var editedUser = new UzytkownikBO()
             {
-                IdUzytkownik = Guid.NewGuid(),
-                Email = "f@domena.pl",
-                Haslo = "haslo789",
                 Imie = "Nowy",
                 Nazwisko = "Uzytkownik",
-                Admin = true
+                Email = "f@domena.pl",
+                Haslo = "haslo789"
             };
 
             var response = controller.ZmienProfil(editedUser).Value.ToString();
