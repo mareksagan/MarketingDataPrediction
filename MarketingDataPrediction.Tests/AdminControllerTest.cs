@@ -85,6 +85,22 @@ namespace MarketingDataPrediction.Tests
         }
 
         [Fact]
+        public void CzyPobieraUzytkownika()
+        {
+            var response = controller.PobierzUzytkownika(Guid.Parse("2f15b775-a345-4445-b91b-c4cb965c12b8")).Value.ToString();
+
+            Assert.NotEqual("", response);
+        }
+
+        [Fact]
+        public void CzyZwracaListeUzytkownikow()
+        {
+            var response = controller.ListaUzytkownikow().Value.ToString();
+
+            Assert.NotEqual("", response);
+        }
+
+        [Fact]
         public void CzyUsuwaUzytkownika()
         {
             Guid userId = Guid.Parse("2f15b775-a345-4445-b91b-c4cb965c12b8");

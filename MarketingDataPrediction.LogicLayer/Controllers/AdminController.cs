@@ -80,15 +80,43 @@ namespace MarketingDataPrediction.LogicLayer.Controllers
             return Json("Zmodyfikowano użytkownika");
         }
 
-        [HttpGet("[action]")]
+        [HttpPost("[action]")]
         [Authorize(Roles = "Admin")]
-        public JsonResult EdytujUzytkownika()
+        public JsonResult PobierzUzytkownika([FromForm]Guid idUzytkownika)
         {
-            List<Uzytkownik> response = null;
+            Uzytkownik response = null;
 
             try
             {
-                response = _db.Uzytkownik.ToList();
+                response = _db.Uzytkownik.Where(u => u.IdUzytkownik == idUzytkownika).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+
+            return Json(response);
+        }
+
+        [HttpGet("[action]")]
+        [Authorize(Roles = "Admin")]
+        public JsonResult ListaUzytkownikow()
+        {
+            UzytkownikListaBO[] response = null;
+
+            try
+            {
+                var query = from u in _db.Uzytkownik
+                            select new UzytkownikListaBO()
+                            {
+                                IdUzytkownik = u.IdUzytkownik,
+                                Email = u.Email,
+                                Imie = u.Imie,
+                                Nazwisko = u.Nazwisko,
+                                Admin = u.Admin ? "Tak" : "Nie"
+                            };
+
+                response = query.ToArray();
             }
             catch (Exception e)
             {

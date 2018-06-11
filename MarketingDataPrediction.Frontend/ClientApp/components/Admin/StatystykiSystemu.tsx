@@ -14,13 +14,10 @@ export class StatystykiSystemu extends React.Component<RouteComponentProps<{}>, 
 
         var self = this;
 
-        debugger;
-
         Axios.get("https://localhost:44319/admin/StatystykiSystemu",
         { headers: {'Authorization':  'Bearer ' + token} })
         .then(function (response)
         {
-            debugger;
             var tmpResponse = response.data;
 
             console.log(tmpResponse.miesiaceKontaktu);

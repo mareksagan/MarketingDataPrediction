@@ -18,7 +18,6 @@ export class Statystyki extends React.Component<RouteComponentProps<{}>, {statys
         { headers: {'Authorization':  'Bearer ' + tmpToken} })
         .then(function (response)
         {
-            debugger;
             var tmpResponse = response.data as statystykiResponse;
 
             self.setState({ statystyki: tmpResponse });
