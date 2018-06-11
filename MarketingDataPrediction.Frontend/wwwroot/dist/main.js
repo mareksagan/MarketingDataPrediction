@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "6644975af5cff35ff12b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "01a55733b3afa0ff78f4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -49826,6 +49826,7 @@ var Zarzadzaj = (function (_super) {
         else if (mode == false) {
             this.dodajUzytkownika(e);
         }
+        window.location.reload();
     };
     Zarzadzaj.prototype.handleChangeEmail = function (e) {
         e.preventDefault();
@@ -49845,7 +49846,7 @@ var Zarzadzaj = (function (_super) {
     };
     Zarzadzaj.prototype.handleChangeIsAdmin = function (e) {
         e.preventDefault();
-        this.setState({ isAdmin: Boolean(e.target.value) });
+        this.setState({ isAdmin: e.target.value });
     };
     Zarzadzaj.prototype.render = function () {
         var _this = this;
@@ -49893,7 +49894,7 @@ var Zarzadzaj = (function (_super) {
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* FormText */], null, "Podaj nazwisko")),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["b" /* FormGroup */], { check: true },
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["c" /* Label */], { check: true }, "Admin"),
-                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* Input */], { type: "checkbox", onChange: function (e) { return _this.handleChangeIsAdmin(e); }, value: Number(this.state.isAdmin) }),
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["d" /* Input */], { type: "checkbox", onChange: function (e) { return _this.handleChangeIsAdmin(e); }, checked: this.state.isAdmin }),
                     __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["e" /* FormText */], null, "Zmie\u0144 rol\u0119 u\u017Cytkownika w systemie")),
                 __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_1_reactstrap__["f" /* Button */], { type: "button", onClick: function (e) { return _this.handleSubmit(e, _this.state.editMode); } }, "Wy\u015Blij")));
     };
@@ -50619,6 +50620,7 @@ var Zarejestruj = (function (_super) {
             .catch(function (error) {
             console.log(error);
         });
+        console.log('Zarejestrowano użytkownika');
     };
     Zarejestruj.prototype.handleChangeEmail = function (e) {
         e.preventDefault();

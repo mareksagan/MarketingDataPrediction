@@ -34,6 +34,8 @@ export class Zarejestruj extends React.Component<RouteComponentProps<{}>, { emai
         {
             console.log(error);
         });
+
+        console.log('Zarejestrowano użytkownika');
     }
     
     public handleChangeEmail(e: React.ChangeEvent<any>) {
@@ -78,8 +80,7 @@ export class Zarejestruj extends React.Component<RouteComponentProps<{}>, { emai
                     <Label for="powtorzHaslo">Powtórz hasło</Label>
                     <Input onChange={(e) => this.handleChangePass(e)} placeholder="Hasło" value={this.state.pass}/>
                     <FormText>Powtórz hasło</FormText>
-                </FormGroup>
-                validation?*/}
+                </FormGroup>*/}
                 <FormGroup>
                     <Label for="imie">Imię</Label>
                     <Input type="text" onChange={(e) => this.handleChangeName(e)} placeholder="Imię" value={this.state.name}/>

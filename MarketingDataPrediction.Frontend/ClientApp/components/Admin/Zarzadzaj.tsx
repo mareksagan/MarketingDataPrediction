@@ -165,6 +165,8 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, { users:
         {
             this.dodajUzytkownika(e);
         }
+
+        window.location.reload();
     }
 
     public handleChangeEmail(e: React.ChangeEvent<any>) {
@@ -194,7 +196,7 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, { users:
     public handleChangeIsAdmin(e: React.ChangeEvent<any>) {
         e.preventDefault();
     
-        this.setState({ isAdmin: Boolean(e.target.value) });
+        this.setState({ isAdmin: e.target.value });
     }
     
     public render() {
@@ -254,7 +256,7 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, { users:
                 </FormGroup>
                 <FormGroup check>
                     <Label check>Admin</Label>
-                    <Input type="checkbox" onChange={(e) => this.handleChangeIsAdmin(e)} value={Number(this.state.isAdmin)}/>
+                    <Input type="checkbox" onChange={(e) => this.handleChangeIsAdmin(e)} checked={this.state.isAdmin}/>
                     <FormText>Zmień rolę użytkownika w systemie</FormText>
                 </FormGroup>
                 <Button type="button" onClick={(e) => this.handleSubmit(e, this.state.editMode)}>Wyślij</Button>
