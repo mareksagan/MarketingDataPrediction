@@ -32,14 +32,14 @@ namespace MarketingDataPrediction.LogicLayer
 
             KolumnaWynikow = symbole.GetColumn(-1);
 
-            RandomForestLearning teacher = new RandomForestLearning()
+            RandomForestLearning nauczyciel = new RandomForestLearning()
             {
                 SampleRatio = IloscDanychModelu
             };
 
-            RandomForest forest = teacher.Learn(daneWejsciowe, KolumnaWynikow);
+            RandomForest las = nauczyciel.Learn(daneWejsciowe, KolumnaWynikow);
 
-            Rezultaty = forest.Decide(daneWejsciowe);
+            Rezultaty = las.Decide(daneWejsciowe);
         }
 
         public double PoliczBlad()
