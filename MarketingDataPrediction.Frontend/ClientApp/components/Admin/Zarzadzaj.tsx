@@ -194,9 +194,8 @@ export class Zarzadzaj extends React.Component<RouteComponentProps<{}>, { users:
     }
 
     public handleChangeIsAdmin(e: React.ChangeEvent<any>) {
-        e.preventDefault();
-    
-        this.setState({ isAdmin: e.target.value });
+        
+        this.setState({ isAdmin: Boolean(e.target.checked) });
     }
     
     public render() {

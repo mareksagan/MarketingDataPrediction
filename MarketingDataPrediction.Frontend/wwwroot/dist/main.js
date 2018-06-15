@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "01a55733b3afa0ff78f4"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c349c6fe4caeb986fe44"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -49845,8 +49845,7 @@ var Zarzadzaj = (function (_super) {
         this.setState({ lastName: e.target.value });
     };
     Zarzadzaj.prototype.handleChangeIsAdmin = function (e) {
-        e.preventDefault();
-        this.setState({ isAdmin: e.target.value });
+        this.setState({ isAdmin: Boolean(e.target.checked) });
     };
     Zarzadzaj.prototype.render = function () {
         var _this = this;
