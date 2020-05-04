@@ -14,7 +14,7 @@ Based upon [the following dataset](http://archive.ics.uci.edu/ml/datasets/Bank+M
 It underwent the data wrangling process which is a standard practice in data analysis.
 
 ## Installation
-* Set up MS SQL Server and NodeJS on your machine
-* Generate a DB table hierarchy using Entity Framework and import sample records
+* Set up [MS SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) and [NodeJS](https://nodejs.org/en/download/) on your machine
+* Generate a DB table hierarchy using Entity Framework Core and import sample records
 * Use `dotnet run` from .NET Core 2 or compile the project in Visual Studio 2017
 * Go to [localhost:44309](https://localhost:44309)
