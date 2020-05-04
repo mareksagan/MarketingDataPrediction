@@ -13,6 +13,9 @@ It reduces the campaign costs and the burden put on the potential bank clients (
 Based upon [the following dataset](http://archive.ics.uci.edu/ml/datasets/Bank+Marketing).
 It underwent the data wrangling process which is a standard practice in data analysis.
 
+## Machine Learning
+Random Forest classification algorithm using the [Accord.NET library](http://accord-framework.net/)
+
 ## Installation
 * Set up [MS SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) and [NodeJS](https://nodejs.org/en/download/) on your machine
 * Generate a DB table hierarchy using Entity Framework Core and import sample records
